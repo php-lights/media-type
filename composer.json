@@ -6,7 +6,7 @@
 		}
 	],
 	"license": "MIT",
-	"description": "Allows working with INAN media types as entities in PHP",
+	"description": "Allows working with IANA media types as entities in PHP",
 	"autoload": {
 		"psr-4": {
 			"Neoncitylights\\MediaType\\": "src/"

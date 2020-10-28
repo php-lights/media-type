@@ -3,7 +3,7 @@ MediaType is a PHP library for dealing with IANA media types as entities.
 
 ## Install
 ```bash
-composer install neoncitylights/media-type
+composer require neoncitylights/media-type
 ```
 
 ## Usage
