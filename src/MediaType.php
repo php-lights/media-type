@@ -109,8 +109,10 @@ class MediaType {
 	}
 
 	/**
-	 * Gives the value of a specified parameter of a media type, if that parameter exists.
-	 * Otherwise, it will return a null value.
+	 * Gives the value of a specified parameter of a media type,
+	 * if that parameter exists; otherwise, it will return a null value.
+	 * e.g, if given a media type of 'text/plain;charset=UTF-8', and the
+	 * given parameter is 'charset', it will return 'UTF-8'.
 	 *
 	 * @param string $parameterName
 	 * @return string|null
