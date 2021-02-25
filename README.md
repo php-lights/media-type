@@ -1,5 +1,8 @@
 # MediaType
-MediaType is a PHP library for dealing with IANA media types as entities.
+[![License]](https://github.com/neoncitylights/php-data-url//blob/master/LICENSE)
+[![Build Status]](https://github.com/neoncitylights/php-data-url/actions)
+
+**MediaType** is a PHP library for dealing with IANA media types as entities.
 
 ## Install
 ```bash
@@ -26,6 +29,9 @@ print( $mediaType->getEssence() );
 print( $mediaType->getParameterValue( 'charset' ) );
 // 'UTF-8'
 ```
+
+## License
+MediaType is licensed under the [MIT license](/LICENSE).
 
 ## References
 * Freed, N., I., &amp; Borenstein, N. (2016, November). Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types. Retrieved October 29, 2020, from https://tools.ietf.org/html/rfc2046
