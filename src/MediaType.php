@@ -45,7 +45,7 @@ class MediaType {
 	 * @param string $input
 	 * @return self|null
 	 */
-	public static function newFromString( string $input ) : ?self {
+	public static function newFromString( string $input ): ?self {
 		$trimmedInput = trim( $input );
 		if ( empty( $trimmedInput ) ) {
 			return null;
@@ -71,7 +71,7 @@ class MediaType {
 	 * @see https://mimesniff.spec.whatwg.org/#type
 	 * @return string
 	 */
-	public function getType() : string {
+	public function getType(): string {
 		return $this->type;
 	}
 
@@ -82,7 +82,7 @@ class MediaType {
 	 * @see https://mimesniff.spec.whatwg.org/#subtype
 	 * @return string
 	 */
-	public function getSubType() : string {
+	public function getSubType(): string {
 		return $this->subType;
 	}
 
@@ -93,7 +93,7 @@ class MediaType {
 	 * @see https://mimesniff.spec.whatwg.org/#mime-type-essence
 	 * @return string
 	 */
-	public function getEssence() : string {
+	public function getEssence(): string {
 		return "{$this->type}/{$this->subType}";
 	}
 
@@ -104,7 +104,7 @@ class MediaType {
 	 * @see https://mimesniff.spec.whatwg.org/#parameters
 	 * @return array
 	 */
-	public function getParameters() : array {
+	public function getParameters(): array {
 		return $this->parameters;
 	}
 
@@ -117,14 +117,14 @@ class MediaType {
 	 * @param string $parameterName
 	 * @return string|null
 	 */
-	public function getParameterValue( string $parameterName ) : ?string {
+	public function getParameterValue( string $parameterName ): ?string {
 		return $this->parameters[$parameterName] ?? null;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function __toString() : string {
+	public function __toString(): string {
 		$essence = $this->getEssence();
 		if ( empty( $this->getParameters() ) ) {
 			return $essence;
