@@ -12,6 +12,11 @@
 			"Neoncitylights\\MediaType\\": "src/"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"Neoncitylights\\MediaType\\Tests\\": "tests/"
+		}
+	},
 	"funding": [
 		{
 			"type": "github",
