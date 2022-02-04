@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "626d35815dfab89331fd1a5ba2f0c087",
+    "content-hash": "558f9132b01f44b768394ca7e56e1440",
     "packages": [],
     "packages-dev": [
         {
@@ -360,12 +360,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "DeepCopy\\": "src/DeepCopy/"
-                },
                 "files": [
                     "src/DeepCopy/deep_copy.php"
-                ]
+                ],
+                "psr-4": {
+                    "DeepCopy\\": "src/DeepCopy/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -446,6 +446,61 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v4.13.2"
             },
             "time": "2021-11-30T19:35:32+00:00"
+        },
+        {
+            "name": "ockcyp/covers-validator",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oradwell/covers-validator.git",
+                "reference": "baa65a8a4e8b42785b22c647cb1441db14cb9725"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oradwell/covers-validator/zipball/baa65a8a4e8b42785b22c647cb1441db14cb9725",
+                "reference": "baa65a8a4e8b42785b22c647cb1441db14cb9725",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^8.0",
+                "phpunit/phpunit": "^6.0 || ^7.0 || ^8.0 || ^9.0",
+                "symfony/console": "^2.7 || ^3.0 || ^4.0 || ^5.0"
+            },
+            "bin": [
+                "covers-validator"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "OckCyp\\CoversValidator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Radwell",
+                    "email": "oliver.radwell@gmail.com"
+                }
+            ],
+            "description": "Validates @covers tags in PHPUnit tests",
+            "keywords": [
+                "coverage",
+                "phpunit",
+                "testing"
+            ],
+            "support": {
+                "issues": "https://github.com/oradwell/covers-validator/issues",
+                "source": "https://github.com/oradwell/covers-validator/tree/v1.4.0"
+            },
+            "time": "2021-12-11T11:31:32+00:00"
         },
         {
             "name": "phar-io/manifest",

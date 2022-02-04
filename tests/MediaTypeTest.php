@@ -6,14 +6,24 @@ use Neoncitylights\MediaType\MediaType;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass Neoncitylights\MediaType\MediaType
+ * @coversDefaultClass \Neoncitylights\MediaType\MediaType
  */
 class MediaTypeTest extends TestCase {
+	/**
+	 * @covers ::__construct
+	 */
+	public function testConstructor(): void {
+		$this->assertInstanceOf(
+			MediaType::class,
+			new MediaType( 'text', 'plain', [] )
+		);
+	}
+
 	/**
 	 * @covers ::newFromString
 	 * @dataProvider provideValidMediaTypes
 	 */
-	public function testIsValidMediaType( $validMediaType ) {
+	public function testIsValidMediaType( $validMediaType ): void {
 		$this->assertInstanceOf( MediaType::class, MediaType::newFromString( $validMediaType ) );
 	}
 
@@ -21,7 +31,7 @@ class MediaTypeTest extends TestCase {
 	 * @covers ::newFromString
 	 * @dataProvider provideInvalidMediaTypes
 	 */
-	public function testIsInvalidMediaTypeObject ( $invalidMediaType ) {
+	public function testIsInvalidMediaTypeObject ( $invalidMediaType ): void {
 		$this->assertNull( MediaType::newFromString( $invalidMediaType ) );
 	}
 
@@ -29,48 +39,66 @@ class MediaTypeTest extends TestCase {
 	 * @covers ::getType
 	 * @dataProvider provideTypes
 	 */
-	public function testGetType( $expectedType, $actualType ) {
-		$this->assertEquals( $expectedType, $actualType );
+	public function testGetType( $expectedType, $actualType ): void {
+		$this->assertEquals(
+			$expectedType,
+			MediaType::newFromString( $actualType )->getType()
+		);
 	}
 
 	/**
 	 * @covers ::getSubType
 	 * @dataProvider provideSubTypes
 	 */
-	public function testGetSubType( $expectedSubType, $actualSubType ) {
-		$this->assertEquals( $expectedSubType, $actualSubType );
+	public function testGetSubType( $expectedSubType, $actualSubType ): void {
+		$this->assertEquals(
+			$expectedSubType,
+			MediaType::newFromString( $actualSubType )->getSubType()
+		);
 	}
 
 	/**
 	 * @covers ::getEssence
 	 * @dataProvider provideEssences
 	 */
-	public function testGetEssence( $expectedEssence, $actualEssence ) {
-		$this->assertEquals( $expectedEssence, $actualEssence );
+	public function testGetEssence( $expectedEssence, $actualEssence ): void {
+		$this->assertEquals(
+			$expectedEssence,
+			MediaType::newFromString( $actualEssence )->getEssence()
+		);
 	}
 
 	/**
 	 * @covers ::getParameters
 	 * @dataProvider provideParameters
 	 */
-	public function testGetParameters( $expectedParameters, $actualParameters ) {
-		$this->assertEquals( $expectedParameters, $actualParameters );
+	public function testGetParameters( $expectedParameters, $mediaType ): void {
+		$this->assertEquals(
+			$expectedParameters,
+			MediaType::newFromString( $mediaType )->getParameters()
+		);
 	}
 
 	/**
 	 * @covers ::getParameterValue
 	 * @dataProvider provideParameterValues
 	 */
-	public function testGetParameterValue( $expectedParameterValue, $actualParameterValue ) {
-		$this->assertEquals( $expectedParameterValue, $actualParameterValue );
+	public function testGetParameterValue( $expectedParameterValue, $parameterName, $mediaType ): void {
+		$this->assertEquals(
+			$expectedParameterValue,
+			MediaType::newFromString( $mediaType )->getParameterValue( $parameterName )
+		);
 	}
 
 	/**
 	 * @covers ::__toString
 	 * @dataProvider provideStrings
 	 */
-	public function testToString( $expectedString, $actualString ) {
-		$this->assertEquals( $expectedString, $actualString );
+	public function testToString( $expectedString, $mediaType ): void {
+		$this->assertEquals(
+			$expectedString,
+			(string)MediaType::newFromString( $mediaType )
+		);
 	}
 
 	public function provideValidMediaTypes() {
@@ -92,15 +120,15 @@ class MediaTypeTest extends TestCase {
 		return [
 			[
 				'text',
-				MediaType::newFromString( 'text/plain' )->getType(),
+				'text/plain',
 			],
 			[
 				'application',
-				MediaType::newFromString( 'application/xhtml+xml' )->getType(),
+				'application/xhtml+xml',
 			],
 			[
 				'application',
-				MediaType::newFromString( 'application/vnd.openxmlformats-officedocument.presentationml.presentation' )->getType(),
+				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 			],
 		];
 	}
@@ -109,15 +137,15 @@ class MediaTypeTest extends TestCase {
 		return [
 			[
 				'plain',
-				MediaType::newFromString( 'text/plain' )->getSubType(),
+				'text/plain',
 			],
 			[
 				'xhtml+xml',
-				MediaType::newFromString( 'application/xhtml+xml' )->getSubType(),
+				'application/xhtml+xml',
 			],
 			[
 				'vnd.openxmlformats-officedocument.presentationml.presentation',
-				MediaType::newFromString( 'application/vnd.openxmlformats-officedocument.presentationml.presentation' )->getSubType(),
+				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 			],
 		];
 	}
@@ -126,15 +154,15 @@ class MediaTypeTest extends TestCase {
 		return [
 			[
 				'text/plain',
-				MediaType::newFromString( 'text/plain' )->getEssence(),
+				'text/plain',
 			],
 			[
 				'application/xhtml+xml',
-				MediaType::newFromString( 'application/xhtml+xml' )->getEssence(),
+				'application/xhtml+xml',
 			],
 			[
 				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-				MediaType::newFromString( 'application/vnd.openxmlformats-officedocument.presentationml.presentation' )->getEssence(),
+				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 			],
 		];
 	}
@@ -142,27 +170,27 @@ class MediaTypeTest extends TestCase {
 	public function provideParameters() {
 		return [
 			[
-				[
-					'charset' => 'UTF-8'
-				],
-				MediaType::newFromString( 'text/plain;charset=UTF-8' )->getParameters(),
+				[ 'charset' => 'UTF-8' ],
+				'text/plain;charset=UTF-8',
 			],
 			[
 				[],
-				MediaType::newFromString( 'text/plain' )->getParameters(),
+				'text/plain',
 			],
 		];
 	}
 
 	public function provideParameterValues() {
 		return [
-			[ 
+			[
 				'UTF-8',
-				MediaType::newFromString( 'text/plain;charset=UTF-8' )->getParameterValue( 'charset' ),
+				'charset',
+				'text/plain;charset=UTF-8',
 			],
 			[
-				MediaType::newFromString( 'text/plain' )->getParameterValue( 'charset' ),
 				null,
+				'charset',
+				'text/plain',
 			]
 		];
 	}
@@ -171,15 +199,15 @@ class MediaTypeTest extends TestCase {
 		return [
 			[
 				'text/input',
-				(string)MediaType::newFromString( 'text/input' ),
+				'text/input',
 			],
 			[
 				'text/plain;charset=UTF-8',
-				(string)MediaType::newFromString( 'text/plain;charset=UTF-8' ),
+				'text/plain;charset=UTF-8',
 			],
 			[
 				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-				(string)MediaType::newFromString( 'application/vnd.openxmlformats-officedocument.presentationml.presentation' ),
+				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 			]
 		];
 	}

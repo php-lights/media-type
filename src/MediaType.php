@@ -118,7 +118,11 @@ class MediaType {
 	 * @return string|null
 	 */
 	public function getParameterValue( string $parameterName ): ?string {
-		return $this->parameters[$parameterName] ?? null;
+		if ( !array_key_exists( $parameterName, $this->parameters ) ) {
+			return null;
+		}
+
+		return $this->parameters[$parameterName];
 	}
 
 	/**
