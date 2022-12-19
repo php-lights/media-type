@@ -47,6 +47,7 @@
 		"fix": [
 			"minus-x fix .",
 			"phpcbf"
-		]
+		],
+		"docs": "phpdoc"
 	}
 }

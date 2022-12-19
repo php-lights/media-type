@@ -1,6 +1,7 @@
 name: PHP Composer
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
@@ -14,14 +15,15 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Setup PHP with Xdebug
+    - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: '8.1'
         coverage: xdebug
+        tools: composer:v2, phpdoc
 
     - name: Validate composer.json and composer.lock
-      run: composer validate
+      run: composer validate --strict
 
     - name: Cache Composer packages
       id: composer-cache
@@ -33,13 +35,16 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      uses: php-actions/composer@v6
+      run: composer install --prefer-dist --no-progress
 
     - name: Run test suite
       run: composer test
 
-    - name: Upload code coverage to Codecov
-      uses: codecov/codecov-action@v3
+    - name: Build documentation
+      run: composer docs
+
+    - name: Deploy documentation
+      uses: peaceiris/actions-gh-pages@v3
       with:
-        files: ./coverage.xml
-        flags: unittests
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/build
