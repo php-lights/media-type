@@ -8,9 +8,9 @@ namespace Neoncitylights\MediaType;
  * @license MIT
  */
 class MediaType {
-	private const TOKEN_TYPE_SEPARATOR = '/';
-	private const TOKEN_DELIMETER = ';';
-	private const TOKEN_EQUAL = '=';
+	public const TOKEN_TYPE_SEPARATOR = '/';
+	public const TOKEN_DELIMETER = ';';
+	public const TOKEN_EQUAL = '=';
 
 	/**
 	 * @see https://mimesniff.spec.whatwg.org/#type
@@ -39,29 +39,6 @@ class MediaType {
 		$this->type = $type;
 		$this->subType = $subType;
 		$this->parameters = $parameters;
-	}
-
-	/**
-	 * @param string $input
-	 * @return self|null
-	 */
-	public static function newFromString( string $input ): ?self {
-		$trimmedInput = trim( $input );
-		if ( empty( $trimmedInput ) ) {
-			return null;
-		}
-
-		$parts = explode( self::TOKEN_DELIMETER, $trimmedInput );
-		list( $type, $subType ) = explode( self::TOKEN_TYPE_SEPARATOR, $parts[0] );
-		unset( $parts[0] );
-
-		$parameters = [];
-		foreach ( $parts as $part ) {
-			$paramParts = explode( self::TOKEN_EQUAL, $part );
-			$parameters[$paramParts[0]] = $paramParts[1];
-		}
-
-		return new self( $type, $subType, $parameters );
 	}
 
 	/**
