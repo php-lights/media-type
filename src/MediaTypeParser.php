@@ -49,13 +49,13 @@ class MediaTypeParser {
 			// skip whitespace
 			Utf8Utils::collectCodePoints(
 				$s, $position,
-				fn(string $c) => Utf8Utils::isHttpWhitespace( $c )
+				fn( string $c ) => Utf8Utils::isHttpWhitespace( $c )
 			);
 
 			// collect parameter name
 			$parameterName = Utf8Utils::collectCodePoints(
 				$s, $position,
-				fn(string $c) => $c === ';' || $c === '='
+				fn( string $c ) => $c === ';' || $c === '='
 			);
 			$parameterName = \strtolower( $parameterName );
 
@@ -78,7 +78,7 @@ class MediaTypeParser {
 			} else {
 				$parameterValue = Utf8Utils::collectCodePoints( $s, $position, fn( string $c ) => $c !== ';' );
 				$parameterValue = Utf8Utils::trimHttpWhitespace( $parameterValue );
-				if( $parameterValue === '' ) {
+				if ( $parameterValue === '' ) {
 					continue;
 				}
 			}

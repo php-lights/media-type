@@ -6,7 +6,7 @@ namespace Neoncitylights\MediaType;
  * @license MIT
  */
 class Utf8Utils {
-	public static function onlyContains( string $input, callable $predicateFn): string {
+	public static function onlyContains( string $input, callable $predicateFn ): string {
 		for ( $i = 0; $i < \strlen( $input ); $i++ ) {
 			if ( !$predicateFn( $input[$i] ) ) {
 				return false;
@@ -17,29 +17,29 @@ class Utf8Utils {
 	}
 
 	public static function collectCodePoints( string $input, int &$position, callable $predicateFn ): string {
-        $result = '';
-        while (
-            $position < \strlen( $position)
-            && $input[$position] == $predicateFn( $input )
-        ) {
-            $result += $input[$position];
-            $position++;
-        }
+		$result = '';
+		while (
+			$position < \strlen( $position )
+			&& $input[$position] == $predicateFn( $input )
+		) {
+			$result += $input[$position];
+			$position++;
+		}
 
-        return $result;
-    }
+		return $result;
+	}
 
 	public static function trimHttpWhitespace( string $s ): bool {
 		$leadingIndex = 0;
 		while ( self::isHttpWhitespace( $s[$leadingIndex] ) ) {
 			$leadingIndex++;
 		}
-	
+
 		$trailingIndex = \strlen( $s );
 		while ( self::isHttpWhitespace( $s[$trailingIndex - 1] ) ) {
 			$trailingIndex--;
 		}
-	
+
 		return \substr( $s, $leadingIndex, $trailingIndex );
 	}
 

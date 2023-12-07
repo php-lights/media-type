@@ -4,4 +4,5 @@ namespace Neoncitylights\MediaType;
 
 use Exception;
 
-class MediaTypeParserException extends Exception {}
+class MediaTypeParserException extends Exception {
+}
