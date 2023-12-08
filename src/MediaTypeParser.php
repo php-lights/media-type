@@ -3,42 +3,73 @@
 namespace Neoncitylights\MediaType;
 
 class MediaTypeParser {
-	public function parse( string $s ) {
-		$length = strlen( $s );
+	public function parseOrNull( string $s ): MediaType|null {
+		try {
+			return $this->parse( $s );
+		} catch ( MediaTypeParserException ) {
+			return null;
+		}
+	}
+
+	public function parse( string $s ): MediaType {
 		$normalized = Utf8Utils::trimHttpWhitespace( $s );
+		if ( $normalized === '' ) {
+			throw new MediaTypeParserException();
+		}
+
+		$length = \strlen( $normalized );
 		$position = 0;
 
 		$type = $this->collectType( $normalized, $length, $position );
-		$subType = $this->collectSubType( $normalized, $length, $position );
-		$parameters = $this->collectParameters( $s, $length, $position );
+		$subType = $this->collectSubType( $normalized, $position );
+		$parameters = $this->collectParameters( $normalized, $length, $position );
 
 		return new MediaType( $type, $subType, $parameters );
 	}
 
 	private function collectType( string $s, int $length, int &$position ): string {
-		$type = Utf8Utils::collectCodePoints(
+		$type = Utf8Utils::collectCodepoints(
 			$s, $position,
-			fn( string $c ) => $c === MediaType::TOKEN_TYPE_SEPARATOR
+			fn( string $c ) => $c !== Token::Slash->value
 		);
-		if ( $position > $length ) {
-			throw new MediaTypeParserException();
+
+		if ( $type === '' ) {
+			throw new MediaTypeParserException( "type: is empty" );
 		}
+
+		$onlyContainsHttpCodepoints = Utf8Utils::onlyContains(
+			$type, fn( string $c ) => Utf8Utils::isHttpTokenCodepoint( $c ) );
+		if ( !$onlyContainsHttpCodepoints ) {
+			throw new MediaTypeParserException( "type: should only contain HTTP codepoints" );
+		}
+
+		if ( $position > $length ) {
+			throw new MediaTypeParserException( "type: position > lenght" );
+		}
+
 		$position++;
 
-		return $type;
+		return \strtolower( $type );
 	}
 
 	private function collectSubType( string $s, int &$position ): string {
-		$subType = Utf8Utils::collectCodePoints(
+		$subType = Utf8Utils::collectCodepoints(
 			$s, $position,
-			fn( string $c ) => $c === MediaType::TOKEN_DELIMETER
+			fn( string $c ) => $c !== Token::Semicolon->value
 		);
 		$subType = Utf8Utils::trimHttpWhitespace( $subType );
+
 		if ( $subType === '' ) {
-			throw new MediaTypeParserException();
+			throw new MediaTypeParserException( "subtype: is empty" );
 		}
 
-		return $subType;
+		$onlyContainsHttpCodepoints = Utf8Utils::onlyContains(
+			$subType, fn( string $c ) => Utf8Utils::isHttpTokenCodepoint( $c ) );
+		if ( !$onlyContainsHttpCodepoints ) {
+			throw new MediaTypeParserException( "subtype: should only contain HTTP codepoints" );
+		}
+
+		return \strtolower( $subType );
 	}
 
 	private function collectParameters( string $s, int $length, int &$position ): array {
@@ -47,21 +78,21 @@ class MediaTypeParser {
 			$position++;
 
 			// skip whitespace
-			Utf8Utils::collectCodePoints(
+			Utf8Utils::collectCodepoints(
 				$s, $position,
 				fn( string $c ) => Utf8Utils::isHttpWhitespace( $c )
 			);
 
 			// collect parameter name
-			$parameterName = Utf8Utils::collectCodePoints(
+			$parameterName = Utf8Utils::collectCodepoints(
 				$s, $position,
-				fn( string $c ) => $c === ';' || $c === '='
+				fn( string $c ) => $c !== Token::Semicolon->value && $c !== Token::Equal->value
 			);
 			$parameterName = \strtolower( $parameterName );
 
 			// skip parameter delimiters
 			if ( $position < $length ) {
-				if ( $s[$position] === ';' ) {
+				if ( $s[$position] === Token::Semicolon->value ) {
 					continue;
 				}
 				$position++;
@@ -73,11 +104,13 @@ class MediaTypeParser {
 			// collect parameter value
 			$parameterValue = null;
 			if ( $s[$position] === '"' ) {
-				$parameterValue = Utf8Utils::collectCodePoints( $s, $position, fn() => true );
-				Utf8Utils::collectCodePoints( $s, $position, fn( string $c ) => $c !== ';' );
+				$parameterValue = Utf8Utils::collectCodepoints( $s, $position, fn() => true );
+				Utf8Utils::collectCodepoints( $s, $position, fn( string $c ) => $c !== Token::Semicolon->value );
 			} else {
-				$parameterValue = Utf8Utils::collectCodePoints( $s, $position, fn( string $c ) => $c !== ';' );
+				$parameterValue = Utf8Utils::collectCodepoints( $s, $position,
+					fn( string $c ) => $c !== Token::Semicolon->value );
 				$parameterValue = Utf8Utils::trimHttpWhitespace( $parameterValue );
+
 				if ( $parameterValue === '' ) {
 					continue;
 				}

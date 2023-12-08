@@ -8,10 +8,6 @@ namespace Neoncitylights\MediaType;
  * @license MIT
  */
 class MediaType {
-	public const TOKEN_TYPE_SEPARATOR = '/';
-	public const TOKEN_DELIMETER = ';';
-	public const TOKEN_EQUAL = '=';
-
 	/**
 	 * @see https://mimesniff.spec.whatwg.org/#type
 	 * @var string
@@ -107,7 +103,7 @@ class MediaType {
 	 */
 	public function __toString(): string {
 		$essence = $this->getEssence();
-		if ( empty( $this->getParameters() ) ) {
+		if ( $this->getParameters() === [] ) {
 			return $essence;
 		}
 
