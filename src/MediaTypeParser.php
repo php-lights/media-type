@@ -2,6 +2,8 @@
 
 namespace Neoncitylights\MediaType;
 
+use Wikimedia\Assert\InvariantException;
+
 class MediaTypeParser {
 	public function parseOrNull( string $s ): MediaType|null {
 		try {
@@ -11,6 +13,9 @@ class MediaTypeParser {
 		}
 	}
 
+	/**
+	 * @throws MediaTypeParserException|InvariantException
+	 */
 	public function parse( string $s ): MediaType {
 		$normalized = Utf8Utils::trimHttpWhitespace( $s );
 		if ( $normalized === '' ) {
@@ -27,6 +32,9 @@ class MediaTypeParser {
 		return new MediaType( $type, $subType, $parameters );
 	}
 
+	/**
+	 * @throws MediaTypeParserException
+	 */
 	private function collectType( string $s, int $length, int &$position ): string {
 		$type = Utf8Utils::collectCodepoints(
 			$s, $position,
@@ -52,6 +60,9 @@ class MediaTypeParser {
 		return \strtolower( $type );
 	}
 
+	/**
+	 * @throws MediaTypeParserException
+	 */
 	private function collectSubType( string $s, int &$position ): string {
 		$subType = Utf8Utils::collectCodepoints(
 			$s, $position,
@@ -72,6 +83,9 @@ class MediaTypeParser {
 		return \strtolower( $subType );
 	}
 
+	/**
+	 * @throws MediaTypeParserException|InvariantException
+	 */
 	private function collectParameters( string $s, int $length, int &$position ): array {
 		$parameters = [];
 		while ( $position < $length ) {
@@ -104,7 +118,7 @@ class MediaTypeParser {
 			// collect parameter value
 			$parameterValue = null;
 			if ( $s[$position] === '"' ) {
-				$parameterValue = Utf8Utils::collectCodepoints( $s, $position, fn() => true );
+				$parameterValue = Utf8Utils::collectHttpQuotedString( $s, $position, true );
 				Utf8Utils::collectCodepoints( $s, $position, fn( string $c ) => $c !== Token::Semicolon->value );
 			} else {
 				$parameterValue = Utf8Utils::collectCodepoints( $s, $position,

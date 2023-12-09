@@ -77,6 +77,14 @@ class MediaTypeParserTest extends TestCase {
 				],
 			],
 			[
+				"text/plain;charset=\"UTF-8\"",
+				'text',
+				'plain',
+				[
+					'charset' => "UTF-8",
+				],
+			],
+			[
 				'TexT/PlAin',
 				'text',
 				'plain',
