@@ -2,13 +2,14 @@
 
 namespace Neoncitylights\MediaType;
 
+use Wikimedia\Assert\AssertionException;
 use Wikimedia\Assert\InvariantException;
 
 class MediaTypeParser {
 	public function parseOrNull( string $s ): MediaType|null {
 		try {
 			return $this->parse( $s );
-		} catch ( MediaTypeParserException ) {
+		} catch ( MediaTypeParserException | AssertionException ) {
 			return null;
 		}
 	}
