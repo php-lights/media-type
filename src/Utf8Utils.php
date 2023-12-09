@@ -3,6 +3,7 @@
 namespace Neoncitylights\MediaType;
 
 use IntlChar;
+use Wikimedia\Assert\Assert;
 
 /**
  * @internal
@@ -45,14 +46,26 @@ class Utf8Utils {
 
 	/**
 	 * @see https://fetch.spec.whatwg.org/#collect-an-http-quoted-string
+	 * @throws Wikimedia\Assert\InvariantException
 	 */
 	public static function collectHttpQuotedString(
 		string $input,
 		int &$position,
 		?bool $extractValue = false
 	): string {
+		if ( $input === '' ) {
+			return '';
+		}
+
 		$positionStart = $position;
 		$value = '';
+
+		$expectedQuote = fn( string $input, int $position, string $value ) =>
+			"Codepoint in \"{$input}\" at position {$position} is {$value}, expected U+0022 (\")";
+		Assert::invariant(
+			fn() => $input[$position] === '"',
+			$expectedQuote( $input, $position, $input[$position] ) );
+
 		$position++;
 
 		while ( true ) {
@@ -60,7 +73,7 @@ class Utf8Utils {
 				$input, $position,
 				fn( string $c ) => $c !== '"' && $c !== '\\' );
 
-			if ( $position > \strlen( $input ) ) {
+			if ( $position >= \strlen( $input ) ) {
 				break;
 			}
 
@@ -68,13 +81,16 @@ class Utf8Utils {
 			$position++;
 
 			if ( $quoteOrBackslash === '\\' ) {
-				if ( $position > \strlen( $input ) ) {
+				if ( $position >= \strlen( $input ) ) {
 					$value .= '\\';
 					break;
 				}
 				$value .= $input[$position];
 				$position++;
 			} else {
+				Assert::invariant(
+					fn() => $quoteOrBackslash === '"',
+					$expectedQuote( $input, $position, $quoteOrBackslash ) );
 				break;
 			}
 		}
@@ -83,7 +99,7 @@ class Utf8Utils {
 			return $value;
 		}
 
-		$substringLength = $position - $positionStart + 1;
+		$substringLength = $position - $positionStart;
 		return \substr( $input, $positionStart, $substringLength );
 	}
 

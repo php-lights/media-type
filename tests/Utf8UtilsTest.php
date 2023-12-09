@@ -40,6 +40,29 @@ class Utf8UtilsTest extends TestCase {
 	}
 
 	/**
+	 * @covers ::collectHttpQuotedString
+	 * @dataProvider provideCollectHttpQuotedString
+	 */
+	public function testCollectHttpQuotedString(
+		string $input,
+		int $startingPosition,
+		bool $shouldExtractValue,
+		string $expectedOutput,
+		int $expectedFinalPosition,
+	): void {
+		$position = $startingPosition;
+
+		$this->assertEquals(
+			$expectedOutput,
+			Utf8Utils::collectHttpQuotedString( $input, $position, $shouldExtractValue )
+		);
+		$this->assertEquals(
+			$expectedFinalPosition,
+			$position,
+		);
+	}
+
+	/**
 	 * @covers ::collectCodepoints
 	 * @dataProvider provideCollectCodepoints
 	 */
@@ -117,6 +140,32 @@ class Utf8UtilsTest extends TestCase {
 			[ '', '' ],
 			[ ' test ', 'test' ],
 			[ '      ', '' ],
+		];
+	}
+
+	public function provideCollectHttpQuotedString(): array {
+		return [
+			[
+				"\"\\",
+				0,
+				false,
+				"\"\\",
+				2,
+			],
+			[
+				"\"Hello\" World",
+				0,
+				false,
+				"\"Hello\"",
+				7,
+			],
+			[
+				"\"Hello \\\\ World\\\"\"",
+				0,
+				false,
+				"\"Hello \\\\ World\\\"\"",
+				18,
+			]
 		];
 	}
 
