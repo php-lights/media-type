@@ -77,6 +77,18 @@ class MediaTypeParserTest extends TestCase {
 				],
 			],
 			[
+				'TexT/PlAin',
+				'text',
+				'plain',
+				[]
+			],
+			[
+				'text/ plain ',
+				'text',
+				'plain',
+				[],
+			],
+			[
 				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 				'application',
 				'vnd.openxmlformats-officedocument.presentationml.presentation',
@@ -91,6 +103,10 @@ class MediaTypeParserTest extends TestCase {
 			[ '    ' ],
 			[ '\n\n\n\n\r\r\r' ],
 			[ 'text' ],
+			[ 'tex\t/plain' ],
+			[ 'text/pla\in' ],
+			[ '/plain' ],
+			[ 'text/' ],
 		];
 	}
 }
