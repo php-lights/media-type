@@ -123,7 +123,7 @@ class MediaTypeParser {
 					fn( string $c ) => Utf8Utils::isHttpTokenCodepoint( $c ) )
 				&& Utf8Utils::onlyContains( $parameterValue,
 					fn( string $c ) => Utf8Utils::isHttpQuotedStringTokenCodepoint( $c ) )
-				&& isset( $parameters[$parameterValue] )
+				&& !isset( $parameters[$parameterName] )
 			) {
 				$parameters[$parameterName] = $parameterValue;
 			}

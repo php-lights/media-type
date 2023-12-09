@@ -25,14 +25,14 @@ class MediaTypeParserTest extends TestCase {
 		string $validMediaType,
 		string $expectedType,
 		string $expectedSubType,
-		// array $expectedParameters
+		array $expectedParameters
 	): void {
 		$parsedValue = $this->parser->parse( $validMediaType );
 
 		$this->assertInstanceOf( MediaType::class, $parsedValue );
 		$this->assertEquals( $expectedType, $parsedValue->getType() );
 		$this->assertEquals( $expectedSubType, $parsedValue->getSubType() );
-		// $this->assertEquals( $expectedParameters, $parsedValue->getParameters() );
+		$this->assertEquals( $expectedParameters, $parsedValue->getParameters() );
 	}
 
 	/**
@@ -50,37 +50,37 @@ class MediaTypeParserTest extends TestCase {
 				'text/plain',
 				'text',
 				'plain',
-				// [],
+				[],
 			],
 			[
 				'text/plain;charset=UTF-8',
 				'text',
 				'plain',
-				// [
-				// 	'charset' => 'UTF-8',
-				// ],
+				[
+					'charset' => 'UTF-8',
+				],
 			],
 			[
 				'  text/plain;charset=UTF-8  ',
 				'text',
 				'plain',
-				// [
-				// 	'charset' => 'UTF-8',
-				// ],
+				[
+					'charset' => 'UTF-8',
+				],
 			],
 			[
 				'  text/plain;   charset=UTF-8  ',
 				'text',
 				'plain',
-				// [
-				// 	'charset' => 'UTF-8',
-				// ],
+				[
+					'charset' => 'UTF-8',
+				],
 			],
 			[
 				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 				'application',
 				'vnd.openxmlformats-officedocument.presentationml.presentation',
-				// [],
+				[],
 			]
 		];
 	}
