@@ -5,6 +5,9 @@ namespace Neoncitylights\MediaType;
 use Wikimedia\Assert\AssertionException;
 use Wikimedia\Assert\InvariantException;
 
+/**
+ * @see https://mimesniff.spec.whatwg.org/#parsing-a-mime-type
+ */
 class MediaTypeParser {
 	public function parseOrNull( string $s ): MediaType|null {
 		try {
@@ -53,7 +56,7 @@ class MediaTypeParser {
 		}
 
 		if ( $position > $length ) {
-			throw new MediaTypeParserException( "type: position > lenght" );
+			throw new MediaTypeParserException( "type: position > length" );
 		}
 
 		$position++;
@@ -85,7 +88,7 @@ class MediaTypeParser {
 	}
 
 	/**
-	 * @throws MediaTypeParserException|InvariantException
+	 * @throws InvariantException
 	 */
 	private function collectParameters( string $s, int $length, int &$position ): array {
 		$parameters = [];
@@ -138,7 +141,7 @@ class MediaTypeParser {
 					fn( string $c ) => Utf8Utils::isHttpTokenCodepoint( $c ) )
 				&& Utf8Utils::onlyContains( $parameterValue,
 					fn( string $c ) => Utf8Utils::isHttpQuotedStringTokenCodepoint( $c ) )
-				&& !isset( $parameters[$parameterName] )
+				&& !\array_key_exists( $parameterName, $parameters )
 			) {
 				$parameters[$parameterName] = $parameterValue;
 			}

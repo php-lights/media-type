@@ -91,7 +91,7 @@ class MediaType {
 	 * @return string|null
 	 */
 	public function getParameterValue( string $parameterName ): ?string {
-		if ( !array_key_exists( $parameterName, $this->parameters ) ) {
+		if ( !\array_key_exists( $parameterName, $this->parameters ) ) {
 			return null;
 		}
 
@@ -99,6 +99,7 @@ class MediaType {
 	}
 
 	/**
+	 * @see https://mimesniff.spec.whatwg.org/#serializing-a-mime-type
 	 * @return string
 	 */
 	public function __toString(): string {
@@ -109,9 +110,28 @@ class MediaType {
 
 		$serializedParameters = '';
 		foreach ( $this->getParameters() as $parameter => $value ) {
-			$serializedParameters .= ";{$parameter}={$value}";
+			$serializedParameters .= ";{$parameter}=";
+			$serializedValue = $value;
+
+			$onlyContainsHttpCodepoints = Utf8Utils::onlyContains(
+				$value,
+				fn( string $s ) => Utf8Utils::isHttpTokenCodepoint( $s ) );
+
+			if ( $value === '' || !$onlyContainsHttpCodepoints ) {
+				$serializedValue = $this->serializeParameterValue( $value );
+			}
+
+			$serializedParameters .= $serializedValue;
 		}
 
 		return "{$essence}{$serializedParameters}";
+	}
+
+	private function serializeParameterValue( string $value ): string {
+		$charsToEscape = [ '"', '\\' ];
+		$escapedChars = [ '\\"', '\\\\' ];
+		$replaced = \str_replace( $charsToEscape, $escapedChars, $value );
+
+		return "\"{$replaced}\"";
 	}
 }

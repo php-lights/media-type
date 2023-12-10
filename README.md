@@ -18,8 +18,10 @@ composer require neoncitylights/media-type
 <?php
 
 use Neoncitylights\MediaType\MediaType;
+use Neoncitylights\MediaType\MediaTypeParser;
 
-$mediaType = MediaType::newFromString( 'text/plain;charset=UTF-8' );
+$parser = new MediaTypeParser();
+$mediaType = $parser->parseOrNull( 'text/plain;charset=UTF-8' );
 
 print( $mediaType->getType() );
 // 'text'

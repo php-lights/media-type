@@ -212,6 +212,12 @@ class MediaTypeTest extends TestCase {
 				'text/plain;charset=UTF-8',
 			],
 			[
+				'text',
+				'plain',
+				[ 'param' => '' ],
+				"text/plain;param=\"\"",
+			],
+			[
 				'application',
 				'vnd.openxmlformats-officedocument.presentationml.presentation',
 				[],
