@@ -2,12 +2,14 @@
 
 namespace Neoncitylights\MediaType;
 
+use Stringable;
+
 /**
  * @see https://tools.ietf.org/html/rfc2045
  * @see https://mimesniff.spec.whatwg.org/
  * @license MIT
  */
-class MediaType {
+class MediaType implements Stringable {
 	/**
 	 * @see https://mimesniff.spec.whatwg.org/#type
 	 * @var string
