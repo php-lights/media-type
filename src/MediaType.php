@@ -2,16 +2,14 @@
 
 namespace Neoncitylights\MediaType;
 
+use Stringable;
+
 /**
  * @see https://tools.ietf.org/html/rfc2045
  * @see https://mimesniff.spec.whatwg.org/
  * @license MIT
  */
-class MediaType {
-	private const TOKEN_TYPE_SEPARATOR = '/';
-	private const TOKEN_DELIMETER = ';';
-	private const TOKEN_EQUAL = '=';
-
+class MediaType implements Stringable {
 	/**
 	 * @see https://mimesniff.spec.whatwg.org/#type
 	 * @var string
@@ -39,29 +37,6 @@ class MediaType {
 		$this->type = $type;
 		$this->subType = $subType;
 		$this->parameters = $parameters;
-	}
-
-	/**
-	 * @param string $input
-	 * @return self|null
-	 */
-	public static function newFromString( string $input ): ?self {
-		$trimmedInput = trim( $input );
-		if ( empty( $trimmedInput ) ) {
-			return null;
-		}
-
-		$parts = explode( self::TOKEN_DELIMETER, $trimmedInput );
-		list( $type, $subType ) = explode( self::TOKEN_TYPE_SEPARATOR, $parts[0] );
-		unset( $parts[0] );
-
-		$parameters = [];
-		foreach ( $parts as $part ) {
-			$paramParts = explode( self::TOKEN_EQUAL, $part );
-			$parameters[$paramParts[0]] = $paramParts[1];
-		}
-
-		return new self( $type, $subType, $parameters );
 	}
 
 	/**
@@ -118,7 +93,7 @@ class MediaType {
 	 * @return string|null
 	 */
 	public function getParameterValue( string $parameterName ): ?string {
-		if ( !array_key_exists( $parameterName, $this->parameters ) ) {
+		if ( !\array_key_exists( $parameterName, $this->parameters ) ) {
 			return null;
 		}
 
@@ -126,19 +101,39 @@ class MediaType {
 	}
 
 	/**
+	 * @see https://mimesniff.spec.whatwg.org/#serializing-a-mime-type
 	 * @return string
 	 */
 	public function __toString(): string {
 		$essence = $this->getEssence();
-		if ( empty( $this->getParameters() ) ) {
+		if ( $this->getParameters() === [] ) {
 			return $essence;
 		}
 
 		$serializedParameters = '';
 		foreach ( $this->getParameters() as $parameter => $value ) {
-			$serializedParameters .= ";{$parameter}={$value}";
+			$serializedParameters .= ";{$parameter}=";
+			$serializedValue = $value;
+
+			$onlyContainsHttpCodepoints = Utf8Utils::onlyContains(
+				$value,
+				fn( string $s ) => Utf8Utils::isHttpTokenCodepoint( $s ) );
+
+			if ( $value === '' || !$onlyContainsHttpCodepoints ) {
+				$serializedValue = $this->serializeParameterValue( $value );
+			}
+
+			$serializedParameters .= $serializedValue;
 		}
 
 		return "{$essence}{$serializedParameters}";
+	}
+
+	private function serializeParameterValue( string $value ): string {
+		$charsToEscape = [ '"', '\\' ];
+		$escapedChars = [ '\\"', '\\\\' ];
+		$replaced = \str_replace( $charsToEscape, $escapedChars, $value );
+
+		return "\"{$replaced}\"";
 	}
 }

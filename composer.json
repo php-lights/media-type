@@ -23,6 +23,9 @@
 			"url": "https://github.com/sponsors/neoncitylights"
 		}
 	],
+	"require": {
+		"wikimedia/assert": "^0.5.1"
+	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "40.0.0",
 		"mediawiki/minus-x": "1.1.1",

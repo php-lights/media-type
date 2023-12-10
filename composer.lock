@@ -4,8 +4,67 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "44cf58f97ff9d824fb0d6bbf7cd3e3e0",
-    "packages": [],
+    "content-hash": "370c999c989baebbb32da76f2d92b9a8",
+    "packages": [
+        {
+            "name": "wikimedia/assert",
+            "version": "v0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wikimedia/Assert.git",
+                "reference": "27c983fddac1197dc37f6a7cec00fc02861529cd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wikimedia/Assert/zipball/27c983fddac1197dc37f6a7cec00fc02861529cd",
+                "reference": "27c983fddac1197dc37f6a7cec00fc02861529cd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.9"
+            },
+            "require-dev": {
+                "mediawiki/mediawiki-codesniffer": "38.0.0",
+                "mediawiki/minus-x": "1.1.1",
+                "ockcyp/covers-validator": "1.3.3",
+                "php-parallel-lint/php-console-highlighter": "0.5.0",
+                "php-parallel-lint/php-parallel-lint": "1.3.1",
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Wikimedia\\Assert\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Kinzler"
+                },
+                {
+                    "name": "Thiemo Kreuz"
+                }
+            ],
+            "description": "Provides runtime assertions",
+            "homepage": "https://github.com/wikimedia/Assert",
+            "keywords": [
+                "assert",
+                "assertions",
+                "php",
+                "postcondition",
+                "precondition",
+                "qa"
+            ],
+            "support": {
+                "source": "https://github.com/wikimedia/Assert/tree/v0.5.1"
+            },
+            "time": "2021-12-21T11:46:59+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "composer/semver",
@@ -3158,5 +3217,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

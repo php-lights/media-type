@@ -20,29 +20,13 @@ class MediaTypeTest extends TestCase {
 	}
 
 	/**
-	 * @covers ::newFromString
-	 * @dataProvider provideValidMediaTypes
-	 */
-	public function testIsValidMediaType( $validMediaType ): void {
-		$this->assertInstanceOf( MediaType::class, MediaType::newFromString( $validMediaType ) );
-	}
-
-	/**
-	 * @covers ::newFromString
-	 * @dataProvider provideInvalidMediaTypes
-	 */
-	public function testIsInvalidMediaTypeObject ( $invalidMediaType ): void {
-		$this->assertNull( MediaType::newFromString( $invalidMediaType ) );
-	}
-
-	/**
 	 * @covers ::getType
 	 * @dataProvider provideTypes
 	 */
-	public function testGetType( $expectedType, $actualType ): void {
+	public function testGetType( string $subType, string $type ): void {
 		$this->assertEquals(
-			$expectedType,
-			MediaType::newFromString( $actualType )->getType()
+			$type,
+			( new MediaType( $type, $subType, [] ) )->getType()
 		);
 	}
 
@@ -50,10 +34,10 @@ class MediaTypeTest extends TestCase {
 	 * @covers ::getSubType
 	 * @dataProvider provideSubTypes
 	 */
-	public function testGetSubType( $expectedSubType, $actualSubType ): void {
+	public function testGetSubType( string $subType, string $type ): void {
 		$this->assertEquals(
-			$expectedSubType,
-			MediaType::newFromString( $actualSubType )->getSubType()
+			$subType,
+			( new MediaType( $type, $subType, [] ) )->getSubType()
 		);
 	}
 
@@ -61,10 +45,10 @@ class MediaTypeTest extends TestCase {
 	 * @covers ::getEssence
 	 * @dataProvider provideEssences
 	 */
-	public function testGetEssence( $expectedEssence, $actualEssence ): void {
+	public function testGetEssence( string $type, string $subType, string $expectedEssence ): void {
 		$this->assertEquals(
 			$expectedEssence,
-			MediaType::newFromString( $actualEssence )->getEssence()
+			( new MediaType( $type, $subType, [] ) )->getEssence()
 		);
 	}
 
@@ -72,10 +56,15 @@ class MediaTypeTest extends TestCase {
 	 * @covers ::getParameters
 	 * @dataProvider provideParameters
 	 */
-	public function testGetParameters( $expectedParameters, $mediaType ): void {
+	public function testGetParameters(
+		string $type,
+		string $subType,
+		array $givenParameters,
+		array $expectedParameters
+	): void {
 		$this->assertEquals(
 			$expectedParameters,
-			MediaType::newFromString( $mediaType )->getParameters()
+			( new MediaType( $type, $subType, $givenParameters ) )->getParameters()
 		);
 	}
 
@@ -83,10 +72,16 @@ class MediaTypeTest extends TestCase {
 	 * @covers ::getParameterValue
 	 * @dataProvider provideParameterValues
 	 */
-	public function testGetParameterValue( $expectedParameterValue, $parameterName, $mediaType ): void {
+	public function testGetParameterValue(
+		string $type,
+		string $subType,
+		array $givenParameters,
+		string $parameterName,
+		string|null $expectedParameterValue
+	): void {
 		$this->assertEquals(
 			$expectedParameterValue,
-			MediaType::newFromString( $mediaType )->getParameterValue( $parameterName )
+			( new MediaType( $type, $subType, $givenParameters ) )->getParameterValue( $parameterName )
 		);
 	}
 
@@ -94,20 +89,16 @@ class MediaTypeTest extends TestCase {
 	 * @covers ::__toString
 	 * @dataProvider provideStrings
 	 */
-	public function testToString( $expectedString, $mediaType ): void {
+	public function testToString(
+		string $type,
+		string $subType,
+		array $givenParameters,
+		string $expectedString
+	): void {
 		$this->assertEquals(
 			$expectedString,
-			(string)MediaType::newFromString( $mediaType )
+			(string)new MediaType( $type, $subType, $givenParameters )
 		);
-	}
-
-	public function provideValidMediaTypes() {
-		return [
-			[ 'text/plain;charset=UTF-8' ],
-			[ 'application/xhtml+xml' ],
-			[ 'application/vnd.openxmlformats-officedocument.presentationml.presentation' ],
-			[ '\n\r\t\0\x0Btext/plain\n\r\t\0\x0B' ],
-		];
 	}
 
 	public function provideInvalidMediaTypes() {
@@ -153,15 +144,18 @@ class MediaTypeTest extends TestCase {
 	public function provideEssences() {
 		return [
 			[
-				'text/plain',
+				'text',
+				'plain',
 				'text/plain',
 			],
 			[
-				'application/xhtml+xml',
+				'application',
+				'xhtml+xml',
 				'application/xhtml+xml',
 			],
 			[
-				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+				'application',
+				'vnd.openxmlformats-officedocument.presentationml.presentation',
 				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 			],
 		];
@@ -170,12 +164,16 @@ class MediaTypeTest extends TestCase {
 	public function provideParameters() {
 		return [
 			[
+				'text',
+				'plain',
 				[ 'charset' => 'UTF-8' ],
-				'text/plain;charset=UTF-8',
+				[ 'charset' => 'UTF-8' ],
 			],
 			[
+				'text',
+				'plain',
 				[],
-				'text/plain',
+				[],
 			],
 		];
 	}
@@ -183,14 +181,18 @@ class MediaTypeTest extends TestCase {
 	public function provideParameterValues() {
 		return [
 			[
-				'UTF-8',
+				'text',
+				'plain',
+				[ 'charset' => 'UTF-8' ],
 				'charset',
-				'text/plain;charset=UTF-8',
+				'UTF-8'
 			],
 			[
-				null,
+				'text',
+				'plain',
+				[],
 				'charset',
-				'text/plain',
+				null,
 			]
 		];
 	}
@@ -198,15 +200,27 @@ class MediaTypeTest extends TestCase {
 	public function provideStrings() {
 		return [
 			[
-				'text/input',
+				'text',
+				'input',
+				[],
 				'text/input',
 			],
 			[
-				'text/plain;charset=UTF-8',
+				'text',
+				'plain',
+				[ 'charset' => 'UTF-8' ],
 				'text/plain;charset=UTF-8',
 			],
 			[
-				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+				'text',
+				'plain',
+				[ 'param' => '' ],
+				"text/plain;param=\"\"",
+			],
+			[
+				'application',
+				'vnd.openxmlformats-officedocument.presentationml.presentation',
+				[],
 				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 			]
 		];
