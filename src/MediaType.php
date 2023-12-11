@@ -101,6 +101,121 @@ class MediaType implements Stringable {
 	}
 
 	/**
+	 * @see https://mimesniff.spec.whatwg.org/#image-mime-type
+	 */
+	public function isImage(): bool {
+		return $this->getType() === 'image';
+	}
+
+	/**
+	 * https://mimesniff.spec.whatwg.org/#audio-or-video-mime-type
+	 */
+	public function isAudioOrVideo(): bool {
+		return $this->getType() === 'video'
+			|| $this->getType() === 'audio'
+			|| $this->getEssence() === 'application/ogg';
+	}
+
+	/**
+	 * @see https://mimesniff.spec.whatwg.org/#font-mime-type
+	 */
+	public function isFont(): bool {
+		return $this->getType() === 'font'
+			|| ( $this->getType() === 'application'
+			&& \in_array( $this->getSubType(), [
+				'font-cff',
+				'font-off',
+				'font-sfnt',
+				'font-ttf',
+				'font-woff',
+				'vnd.ms-fontobject',
+				'vnd.ms-opentype ',
+			] ) );
+	}
+
+	/**
+	 * @see https://mimesniff.spec.whatwg.org/#zip-based-mime-type
+	 */
+	public function isZipBased(): bool {
+		return \str_ends_with( $this->getSubType(), '+zip' )
+			|| $this->getEssence() === 'application/zip';
+	}
+
+	/**
+	 * @see https://mimesniff.spec.whatwg.org/#archive-mime-type
+	 */
+	public function isArchive(): bool {
+		return $this->getType() === 'application'
+			&& \in_array( $this->getSubType(), [ 'x-rar-compressed', 'zip', 'x-gzip' ] );
+	}
+
+	/**
+	 * @see https://mimesniff.spec.whatwg.org/#xml-mime-type
+	 */
+	public function isXml(): bool {
+		return \str_ends_with( $this->getSubType(), '+xml' )
+			|| $this->getEssence() === 'text/xml'
+			|| $this->getEssence() === 'application/xml';
+	}
+
+	/**
+	 * @see https://mimesniff.spec.whatwg.org/#html-mime-type
+	 *
+	 * @return bool
+	 */
+	public function isHtml(): bool {
+		return $this->getEssence() === 'text/html';
+	}
+
+	/**
+	 * @see https://mimesniff.spec.whatwg.org/#scriptable-mime-type
+	 */
+	public function isScriptable(): bool {
+		return $this->isXml()
+			|| $this->isHtml()
+			|| $this->getEssence() === 'application/pdf';
+	}
+
+	/**
+	 * @see https://mimesniff.spec.whatwg.org/#javascript-mime-type
+	 */
+	public function isJavaScript(): bool {
+		return (
+				$this->getType() === 'application'
+				&& \in_array( $this->getSubType(), [
+					'ecmascript',
+					'javascript',
+					'x-ecmascript',
+					'x-javascript'
+				] ) )
+			|| (
+				$this->getType() === 'text'
+				&& \in_array( $this->getSubType(), [
+					'ecmascript',
+					'javascript',
+					'javascript1.0',
+					'javascript1.1',
+					'javascript1.2',
+					'javascript1.3',
+					'javascript1.4',
+					'javascript1.5',
+					'jscript',
+					'livescript',
+					'x-ecmascript',
+					'x-javascript'
+				] ) );
+	}
+
+	/**
+	 * @see https://mimesniff.spec.whatwg.org/#json-mime-type
+	 */
+	public function isJson(): bool {
+		return \str_ends_with( $this->getSubType(), '+json' )
+			|| $this->getEssence() === 'application/json'
+			|| $this->getEssence() === 'text/json';
+	}
+
+	/**
 	 * @see https://mimesniff.spec.whatwg.org/#serializing-a-mime-type
 	 * @return string
 	 */
