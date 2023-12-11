@@ -9,24 +9,24 @@ use Stringable;
  * @see https://mimesniff.spec.whatwg.org/
  * @license MIT
  */
-class MediaType implements Stringable {
+final readonly class MediaType implements Stringable {
 	/**
 	 * @see https://mimesniff.spec.whatwg.org/#type
 	 * @var string
 	 */
-	private $type;
+	private string $type;
 
 	/**
 	 * @see https://mimesniff.spec.whatwg.org/#subtype
 	 * @var string
 	 */
-	private $subType;
+	private string $subType;
 
 	/**
 	 * @see https://mimesniff.spec.whatwg.org/#parameters
 	 * @var string[]
 	 */
-	private $parameters;
+	private array $parameters;
 
 	/**
 	 * @param string $type
