@@ -26,7 +26,6 @@
 	</rule>
 
 	<file>.</file>
-	<exclude-pattern>/tests/*</exclude-pattern>
 	<arg name="bootstrap" value="./vendor/mediawiki/mediawiki-codesniffer/utils/bootstrap-ci.php"/>
 	<arg name="extensions" value="php,inc"/>
 	<arg name="encoding" value="UTF-8"/>
