@@ -17,7 +17,7 @@
 	<rule ref="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPrivate">
 		<severity>0</severity>
 	</rule>
-	<rule ref="Squiz.Commenting.FunctionComment.IncorrectTypeHint"/>
+	<rule ref="Squiz.Commenting.FunctionComment.IncorrectTypeHint" />
 	<rule ref="Generic.Files.LineLength">
 		<properties>
 			<!-- inherited line limit from MediaWiki is 100; make it at least 120 -->
@@ -26,7 +26,7 @@
 	</rule>
 
 	<file>.</file>
-	<arg name="bootstrap" value="./vendor/mediawiki/mediawiki-codesniffer/utils/bootstrap-ci.php"/>
-	<arg name="extensions" value="php"/>
-	<arg name="encoding" value="UTF-8"/>
+	<arg name="bootstrap" value="./vendor/mediawiki/mediawiki-codesniffer/utils/bootstrap-ci.php" />
+	<arg name="extensions" value="php" />
+	<arg name="encoding" value="UTF-8" />
 </ruleset>
