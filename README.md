@@ -9,6 +9,12 @@
 This library is compliant to RFC 2045[^rfc-2045], and takes references from RFC 2046[^rfc-2046], RFC 6838[^rfc-6838], and the WHATWG Mime Sniffing Standard[^whatwg-mime].
 
 ## Install
+
+System requirements:
+
+- Minimum PHP version: 8.1
+- [`intl`](https://www.php.net/intl) PHP extension ([installation instructions](https://www.php.net/manual/en/intl.installation.php))
+
 ```bash
 composer require neoncitylights/media-type
 ```
