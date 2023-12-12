@@ -9,7 +9,7 @@ use Wikimedia\Assert\Assert;
  * @internal
  * @license MIT
  */
-final readonly class Utf8Utils {
+final class Utf8Utils {
 	public static function onlyContains( string $input, callable $predicateFn ): bool {
 		if ( $input === '' ) {
 			return true;
