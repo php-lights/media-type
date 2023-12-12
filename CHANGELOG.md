@@ -29,6 +29,7 @@
 
 ### Breaking changes
 
+ - The package now requires PHP 8.1 or higher, and the native `intl` extension.
  - The `MediaType` class now has public and readonly properties. Access these instead:
    - `$mediaType->type` replaces `MediaType->getType()` (removed)
    - `$mediaType->subType` replaces `MediaType->getSubType()` (removed)
