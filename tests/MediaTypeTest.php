@@ -20,28 +20,6 @@ class MediaTypeTest extends TestCase {
 	}
 
 	/**
-	 * @covers ::getType
-	 * @dataProvider provideTypes
-	 */
-	public function testGetType( string $subType, string $type ): void {
-		$this->assertEquals(
-			$type,
-			( new MediaType( $type, $subType, [] ) )->getType()
-		);
-	}
-
-	/**
-	 * @covers ::getSubType
-	 * @dataProvider provideSubTypes
-	 */
-	public function testGetSubType( string $subType, string $type ): void {
-		$this->assertEquals(
-			$subType,
-			( new MediaType( $type, $subType, [] ) )->getSubType()
-		);
-	}
-
-	/**
 	 * @covers ::getEssence
 	 * @dataProvider provideEssences
 	 */
@@ -49,22 +27,6 @@ class MediaTypeTest extends TestCase {
 		$this->assertEquals(
 			$expectedEssence,
 			( new MediaType( $type, $subType, [] ) )->getEssence()
-		);
-	}
-
-	/**
-	 * @covers ::getParameters
-	 * @dataProvider provideParameters
-	 */
-	public function testGetParameters(
-		string $type,
-		string $subType,
-		array $givenParameters,
-		array $expectedParameters
-	): void {
-		$this->assertEquals(
-			$expectedParameters,
-			( new MediaType( $type, $subType, $givenParameters ) )->getParameters()
 		);
 	}
 
@@ -104,40 +66,6 @@ class MediaTypeTest extends TestCase {
 	public function provideInvalidMediaTypes() {
 		return [
 			[ '' ],
-		];
-	}
-
-	public function provideTypes() {
-		return [
-			[
-				'text',
-				'text/plain',
-			],
-			[
-				'application',
-				'application/xhtml+xml',
-			],
-			[
-				'application',
-				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-			],
-		];
-	}
-
-	public function provideSubTypes() {
-		return [
-			[
-				'plain',
-				'text/plain',
-			],
-			[
-				'xhtml+xml',
-				'application/xhtml+xml',
-			],
-			[
-				'vnd.openxmlformats-officedocument.presentationml.presentation',
-				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-			],
 		];
 	}
 

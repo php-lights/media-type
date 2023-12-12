@@ -30,9 +30,9 @@ class MediaTypeParserTest extends TestCase {
 		$parsedValue = $this->parser->parse( $validMediaType );
 
 		$this->assertInstanceOf( MediaType::class, $parsedValue );
-		$this->assertEquals( $expectedType, $parsedValue->getType() );
-		$this->assertEquals( $expectedSubType, $parsedValue->getSubType() );
-		$this->assertEquals( $expectedParameters, $parsedValue->getParameters() );
+		$this->assertEquals( $expectedType, $parsedValue->type );
+		$this->assertEquals( $expectedSubType, $parsedValue->subType );
+		$this->assertEquals( $expectedParameters, $parsedValue->parameters );
 	}
 
 	/**
