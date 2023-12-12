@@ -9,7 +9,7 @@ use Stringable;
  * @see https://mimesniff.spec.whatwg.org/
  * @license MIT
  */
-class MediaType implements Stringable {
+final class MediaType implements Stringable {
 	/**
 	 * Gives the first portion of a media type's essence.
 	 * e.g, if given 'text/plain', it will return 'text'.
