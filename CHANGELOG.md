@@ -30,12 +30,18 @@
 ### Breaking changes
 
  - The package now requires PHP 8.1 or higher, and the native `intl` extension.
+ - The following classes are now marked as `final`:
+   - `MediaType`
+   - `MediaTypeParser`
+   - `MediaTypeParseException`
  - The `MediaType` class now has public and readonly properties. Access these instead:
    - `$mediaType->type` replaces `MediaType->getType()` (removed)
    - `$mediaType->subType` replaces `MediaType->getSubType()` (removed)
    - `$mediaType->parameters` replaces `MediaType->getParameters()` (removed)
  - `MediaType::newFromString()` is removed. Instead, create a new `MediaTypeParser` instance and call `parseOrNull()`.
 
+### Notes
+ - The `Utf8Utils` class and `Token` enum are **internal**, and therefore not part of the public API. They may be changed or removed at any time.
 
 ## 1.0.0 (2020-10-28)
 
