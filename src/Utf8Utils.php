@@ -60,10 +60,10 @@ final readonly class Utf8Utils {
 		$positionStart = $position;
 		$value = '';
 
-		$expectedQuote = fn( string $input, int $position, string $value ) =>
+		$expectedQuote = fn ( string $input, int $position, string $value ) =>
 			"Codepoint in \"{$input}\" at position {$position} is {$value}, expected U+0022 (\")";
 		Assert::invariant(
-			fn() => $input[$position] === '"',
+			fn () => $input[$position] === '"',
 			$expectedQuote( $input, $position, $input[$position] ) );
 
 		$position++;
@@ -71,7 +71,7 @@ final readonly class Utf8Utils {
 		while ( true ) {
 			$value .= self::collectCodepoints(
 				$input, $position,
-				fn( string $c ) => $c !== '"' && $c !== '\\' );
+				fn ( string $c ) => $c !== '"' && $c !== '\\' );
 
 			if ( $position >= \strlen( $input ) ) {
 				break;
@@ -89,7 +89,7 @@ final readonly class Utf8Utils {
 				$position++;
 			} else {
 				Assert::invariant(
-					fn() => $quoteOrBackslash === '"',
+					fn () => $quoteOrBackslash === '"',
 					$expectedQuote( $input, $position, $quoteOrBackslash ) );
 				break;
 			}

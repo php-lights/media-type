@@ -29,17 +29,10 @@ use Neoncitylights\MediaType\MediaTypeParser;
 $parser = new MediaTypeParser();
 $mediaType = $parser->parseOrNull( 'text/plain;charset=UTF-8' );
 
-print( $mediaType->getType() );
-// 'text'
-
-print( $mediaType->getSubType() );
-// 'plain'
-
-print( $mediaType->getEssence() );
-// 'text/plain'
-
-print( $mediaType->getParameterValue( 'charset' ) );
-// 'UTF-8'
+print( $mediaType->type ); // 'text'
+print( $mediaType->subType ); // 'plain'
+print( $mediaType->getEssence() ); // 'text/plain'
+print( $mediaType->getParameterValue( 'charset' ) ); // 'UTF-8'
 ```
 
 ## License
