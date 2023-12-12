@@ -8,7 +8,7 @@ use Wikimedia\Assert\InvariantException;
 /**
  * @see https://mimesniff.spec.whatwg.org/#parsing-a-mime-type
  */
-class MediaTypeParser {
+final class MediaTypeParser {
 	public function parseOrNull( string $s ): MediaType|null {
 		try {
 			return $this->parse( $s );

@@ -7,5 +7,5 @@ use Exception;
 /**
  * @license MIT
  */
-class MediaTypeParserException extends Exception {
+final class MediaTypeParserException extends Exception {
 }
