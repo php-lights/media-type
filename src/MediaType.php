@@ -11,22 +11,31 @@ use Stringable;
  */
 class MediaType implements Stringable {
 	/**
+	 * Gives the first portion of a media type's essence.
+	 * e.g, if given 'text/plain', it will return 'text'.
+	 *
 	 * @see https://mimesniff.spec.whatwg.org/#type
 	 * @var string
 	 */
-	private $type;
+	public readonly string $type;
 
 	/**
+	 * Gives the second portion of a media type's essence.
+	 * e.g, if given 'text/plain', it will return 'plain'.
+	 *
 	 * @see https://mimesniff.spec.whatwg.org/#subtype
 	 * @var string
 	 */
-	private $subType;
+	public readonly string $subType;
 
 	/**
+	 * Gives an array of parameters of a media type,
+	 * if any parameters exist. Otherwise, it will return an empty array.
+	 *
 	 * @see https://mimesniff.spec.whatwg.org/#parameters
 	 * @var string[]
 	 */
-	private $parameters;
+	public readonly array $parameters;
 
 	/**
 	 * @param string $type
@@ -40,28 +49,6 @@ class MediaType implements Stringable {
 	}
 
 	/**
-	 * Gives the first portion of a media type's essence.
-	 * e.g, if given 'text/plain', it will return 'text'.
-	 *
-	 * @see https://mimesniff.spec.whatwg.org/#type
-	 * @return string
-	 */
-	public function getType(): string {
-		return $this->type;
-	}
-
-	/**
-	 * Gives the second portion of a media type's essence.
-	 * e.g, if given 'text/plain', it will return 'plain'.
-	 *
-	 * @see https://mimesniff.spec.whatwg.org/#subtype
-	 * @return string
-	 */
-	public function getSubType(): string {
-		return $this->subType;
-	}
-
-	/**
 	 * Gives the type and subtype of a media type.
 	 * e.g, if given 'text/plain;charset=UTF-8', it will return 'text/plain'.
 	 *
@@ -70,17 +57,6 @@ class MediaType implements Stringable {
 	 */
 	public function getEssence(): string {
 		return "{$this->type}/{$this->subType}";
-	}
-
-	/**
-	 * Gives an array of parameters of a media type,
-	 * if any parameters exist. Otherwise, it will return an empty array.
-	 *
-	 * @see https://mimesniff.spec.whatwg.org/#parameters
-	 * @return array
-	 */
-	public function getParameters(): array {
-		return $this->parameters;
 	}
 
 	/**
@@ -104,15 +80,15 @@ class MediaType implements Stringable {
 	 * @see https://mimesniff.spec.whatwg.org/#image-mime-type
 	 */
 	public function isImage(): bool {
-		return $this->getType() === 'image';
+		return $this->type === 'image';
 	}
 
 	/**
 	 * https://mimesniff.spec.whatwg.org/#audio-or-video-mime-type
 	 */
 	public function isAudioOrVideo(): bool {
-		return $this->getType() === 'video'
-			|| $this->getType() === 'audio'
+		return $this->type === 'video'
+			|| $this->type === 'audio'
 			|| $this->getEssence() === 'application/ogg';
 	}
 
@@ -120,9 +96,9 @@ class MediaType implements Stringable {
 	 * @see https://mimesniff.spec.whatwg.org/#font-mime-type
 	 */
 	public function isFont(): bool {
-		return $this->getType() === 'font'
-			|| ( $this->getType() === 'application'
-			&& \in_array( $this->getSubType(), [
+		return $this->type === 'font'
+			|| ( $this->type === 'application'
+			&& \in_array( $this->subType, [
 				'font-cff',
 				'font-off',
 				'font-sfnt',
@@ -137,7 +113,7 @@ class MediaType implements Stringable {
 	 * @see https://mimesniff.spec.whatwg.org/#zip-based-mime-type
 	 */
 	public function isZipBased(): bool {
-		return \str_ends_with( $this->getSubType(), '+zip' )
+		return \str_ends_with( $this->subType, '+zip' )
 			|| $this->getEssence() === 'application/zip';
 	}
 
@@ -145,15 +121,15 @@ class MediaType implements Stringable {
 	 * @see https://mimesniff.spec.whatwg.org/#archive-mime-type
 	 */
 	public function isArchive(): bool {
-		return $this->getType() === 'application'
-			&& \in_array( $this->getSubType(), [ 'x-rar-compressed', 'zip', 'x-gzip' ] );
+		return $this->type === 'application'
+			&& \in_array( $this->subType, [ 'x-rar-compressed', 'zip', 'x-gzip' ] );
 	}
 
 	/**
 	 * @see https://mimesniff.spec.whatwg.org/#xml-mime-type
 	 */
 	public function isXml(): bool {
-		return \str_ends_with( $this->getSubType(), '+xml' )
+		return \str_ends_with( $this->subType, '+xml' )
 			|| $this->getEssence() === 'text/xml'
 			|| $this->getEssence() === 'application/xml';
 	}
@@ -181,16 +157,16 @@ class MediaType implements Stringable {
 	 */
 	public function isJavaScript(): bool {
 		return (
-				$this->getType() === 'application'
-				&& \in_array( $this->getSubType(), [
+				$this->type === 'application'
+				&& \in_array( $this->subType, [
 					'ecmascript',
 					'javascript',
 					'x-ecmascript',
 					'x-javascript'
 				] ) )
 			|| (
-				$this->getType() === 'text'
-				&& \in_array( $this->getSubType(), [
+				$this->type === 'text'
+				&& \in_array( $this->subType, [
 					'ecmascript',
 					'javascript',
 					'javascript1.0',
@@ -210,7 +186,7 @@ class MediaType implements Stringable {
 	 * @see https://mimesniff.spec.whatwg.org/#json-mime-type
 	 */
 	public function isJson(): bool {
-		return \str_ends_with( $this->getSubType(), '+json' )
+		return \str_ends_with( $this->subType, '+json' )
 			|| $this->getEssence() === 'application/json'
 			|| $this->getEssence() === 'text/json';
 	}
@@ -221,12 +197,12 @@ class MediaType implements Stringable {
 	 */
 	public function __toString(): string {
 		$essence = $this->getEssence();
-		if ( $this->getParameters() === [] ) {
+		if ( $this->parameters === [] ) {
 			return $essence;
 		}
 
 		$serializedParameters = '';
-		foreach ( $this->getParameters() as $parameter => $value ) {
+		foreach ( $this->parameters as $parameter => $value ) {
 			$serializedParameters .= ";{$parameter}=";
 			$serializedValue = $value;
 
