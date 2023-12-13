@@ -4,6 +4,7 @@ namespace Neoncitylights\MediaType;
 
 use IntlChar;
 use Wikimedia\Assert\Assert;
+use Wikimedia\Assert\InvariantException;
 
 /**
  * @internal
@@ -46,7 +47,7 @@ final class Utf8Utils {
 
 	/**
 	 * @see https://fetch.spec.whatwg.org/#collect-an-http-quoted-string
-	 * @throws Wikimedia\Assert\InvariantException
+	 * @throws InvariantException
 	 */
 	public static function collectHttpQuotedString(
 		string $input,

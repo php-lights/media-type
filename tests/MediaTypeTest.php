@@ -63,12 +63,6 @@ class MediaTypeTest extends TestCase {
 		);
 	}
 
-	public function provideInvalidMediaTypes() {
-		return [
-			[ '' ],
-		];
-	}
-
 	public function provideEssences() {
 		return [
 			[
