@@ -40,7 +40,7 @@ final class MediaType implements Stringable {
 	/**
 	 * @param string $type
 	 * @param string $subType
-	 * @param array $parameters
+	 * @param string[] $parameters
 	 */
 	public function __construct( string $type, string $subType, array $parameters ) {
 		$this->type = $type;
