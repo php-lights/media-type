@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ef03374c6988399afb081c9e73e682a",
+    "content-hash": "e792a2b2b9cb22172a854c156198d2bb",
     "packages": [
         {
             "name": "wikimedia/assert",
@@ -3295,7 +3295,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.1",
+        "php": ">=8.2",
         "ext-intl": "*"
     },
     "platform-dev": [],
