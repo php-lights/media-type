@@ -94,7 +94,7 @@ final class MediaType implements Stringable {
 	public function isFont(): bool {
 		return $this->type === 'font'
 			|| ( $this->type === 'application'
-			&& \in_array( $this->subType, [
+			&& $this->subtypeMatchesOneOf( [
 				'font-cff',
 				'font-off',
 				'font-sfnt',
@@ -118,7 +118,7 @@ final class MediaType implements Stringable {
 	 */
 	public function isArchive(): bool {
 		return $this->type === 'application'
-			&& \in_array( $this->subType, [ 'x-rar-compressed', 'zip', 'x-gzip' ] );
+			&& $this->subtypeMatchesOneOf( [ 'x-rar-compressed', 'zip', 'x-gzip' ] );
 	}
 
 	/**
@@ -152,7 +152,7 @@ final class MediaType implements Stringable {
 	public function isJavaScript(): bool {
 		return (
 				$this->type === 'application'
-				&& \in_array( $this->subType, [
+				&& $this->subtypeMatchesOneOf( [
 					'ecmascript',
 					'javascript',
 					'x-ecmascript',
@@ -160,7 +160,7 @@ final class MediaType implements Stringable {
 				] ) )
 			|| (
 				$this->type === 'text'
-				&& \in_array( $this->subType, [
+				&& $this->subtypeMatchesOneOf( [
 					'ecmascript',
 					'javascript',
 					'javascript1.0',
@@ -210,6 +210,13 @@ final class MediaType implements Stringable {
 		}
 
 		return "";
+	}
+
+	/**
+	 * @param string[] $subTypes
+	 */
+	private function subtypeMatchesOneOf( array $subTypes ) {
+		return \in_array( $this->subType, $subTypes );
 	}
 
 	/**
