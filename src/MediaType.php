@@ -63,8 +63,6 @@ final class MediaType implements Stringable {
 	 * if that parameter exists; otherwise, it will return a null value.
 	 * e.g, if given a media type of 'text/plain;charset=UTF-8', and the
 	 * given parameter is 'charset', it will return 'UTF-8'.
-	 *
-	 * @param string $parameterName
 	 */
 	public function getParameterValue( string $parameterName ): ?string {
 		if ( !\array_key_exists( $parameterName, $this->parameters ) ) {

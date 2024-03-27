@@ -10,6 +10,7 @@
 
 - Fixes minor phpDoc annotation issues within `MediaType`. Specifically:
   - Removes redundant `@return` annotations that are already specified from return typehints
+  - Removes redundant `@param` annotation from `getParameterValue()`
   - Adds missing `@see` annotation to `isAudioOrVideo()` method in reference to a WHATWG Standard link
 
 ## 2.0.0 (2023-12-11)
