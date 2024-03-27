@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased (YYYY-MM-DD)
+
+### Features
+
+- `MediaType` now has a new method, `minimize( $isSupported )`. This method allows returning a consistent essence as a string, depending on what category the media type is and whether the user agent supports the media type. For example, if the media type is a JavaScript type, then it will consistently return `"text/javascript"`.
+
 ## 2.0.0 (2023-12-11)
 
 ### Features

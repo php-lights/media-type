@@ -48,6 +48,22 @@ class MediaTypeTest extends TestCase {
 	}
 
 	/**
+	 * @covers ::minimize
+	 * @dataProvider provideMinimize
+	 */
+	public function testMinimize(
+		string $type,
+		string $subType,
+		string $expectedEssence,
+		bool $isSupported,
+	) {
+		$this->assertEquals(
+			$expectedEssence,
+			( new MediaType( $type, $subType, [] ) )->minimize( $isSupported )
+		);
+	}
+
+	/**
 	 * @covers ::__toString
 	 * @dataProvider provideStrings
 	 */
@@ -115,6 +131,59 @@ class MediaTypeTest extends TestCase {
 				[],
 				'charset',
 				null,
+			]
+		];
+	}
+
+	public function provideMinimize() {
+		return [
+			[
+				'application',
+				'ecmascript',
+				'text/javascript',
+				true,
+			],
+			[
+				'text',
+				'json',
+				'application/json',
+				true,
+			],
+			[
+				'image',
+				'svg+xml',
+				'image/svg+xml',
+				true,
+			],
+			[
+				'text',
+				'xml',
+				'application/xml',
+				true,
+			],
+			[
+				'text',
+				'plain',
+				'text/plain',
+				true,
+			],
+			[
+				'application',
+				'xhtml+xml',
+				'application/xml',
+				true,
+			],
+			[
+				'application',
+				'vnd.openxmlformats-officedocument.presentationml.presentation',
+				'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+				true,
+			],
+			[
+				'foo',
+				'bar',
+				'',
+				false,
 			]
 		];
 	}

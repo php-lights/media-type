@@ -192,6 +192,33 @@ final class MediaType implements Stringable {
 	}
 
 	/**
+	 * @see https://mimesniff.spec.whatwg.org/#minimize-a-supported-mime-type
+	 */
+	public function minimize( bool $isSupported ): string {
+		if ( $this->isJavaScript() ) {
+			return 'text/javascript';
+		}
+
+		if ( $this->isJson() ) {
+			return 'application/json';
+		}
+
+		if ( $this->getEssence() === 'image/svg+xml' ) {
+			return 'image/svg+xml';
+		}
+
+		if ( $this->isXml() ) {
+			return 'application/xml';
+		}
+
+		if ( $isSupported ) {
+			return $this->getEssence();
+		}
+
+		return "";
+	}
+
+	/**
 	 * @see https://mimesniff.spec.whatwg.org/#serializing-a-mime-type
 	 * @return string
 	 */
