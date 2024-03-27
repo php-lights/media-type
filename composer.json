@@ -24,7 +24,7 @@
 		}
 	],
 	"require": {
-		"php": ">=8.1",
+		"php": ">=8.2",
 		"wikimedia/assert": "^0.5.1",
 		"ext-intl": "*"
 	},
