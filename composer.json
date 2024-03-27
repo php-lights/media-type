@@ -54,5 +54,10 @@
 			"phpcbf"
 		],
 		"docs": "phpdoc"
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
 	}
 }
