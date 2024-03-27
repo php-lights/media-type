@@ -53,7 +53,6 @@ final class MediaType implements Stringable {
 	 * e.g, if given 'text/plain;charset=UTF-8', it will return 'text/plain'.
 	 *
 	 * @see https://mimesniff.spec.whatwg.org/#mime-type-essence
-	 * @return string
 	 */
 	public function getEssence(): string {
 		return "{$this->type}/{$this->subType}";
@@ -66,7 +65,6 @@ final class MediaType implements Stringable {
 	 * given parameter is 'charset', it will return 'UTF-8'.
 	 *
 	 * @param string $parameterName
-	 * @return string|null
 	 */
 	public function getParameterValue( string $parameterName ): ?string {
 		if ( !\array_key_exists( $parameterName, $this->parameters ) ) {
@@ -84,7 +82,7 @@ final class MediaType implements Stringable {
 	}
 
 	/**
-	 * https://mimesniff.spec.whatwg.org/#audio-or-video-mime-type
+	 * @see https://mimesniff.spec.whatwg.org/#audio-or-video-mime-type
 	 */
 	public function isAudioOrVideo(): bool {
 		return $this->type === 'video'
@@ -136,8 +134,6 @@ final class MediaType implements Stringable {
 
 	/**
 	 * @see https://mimesniff.spec.whatwg.org/#html-mime-type
-	 *
-	 * @return bool
 	 */
 	public function isHtml(): bool {
 		return $this->getEssence() === 'text/html';
@@ -220,7 +216,6 @@ final class MediaType implements Stringable {
 
 	/**
 	 * @see https://mimesniff.spec.whatwg.org/#serializing-a-mime-type
-	 * @return string
 	 */
 	public function __toString(): string {
 		$essence = $this->getEssence();
