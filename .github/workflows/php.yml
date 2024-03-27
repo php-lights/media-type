@@ -38,7 +38,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      # `composer config` line required by mediawiki/mediawiki-codesniffer v43.0.0
+      run: |
+        composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer
+        composer install --prefer-dist --no-progress
     - name: Run test suite
       run: composer test
 
