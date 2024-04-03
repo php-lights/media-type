@@ -3,15 +3,12 @@
 namespace Neoncitylights\MediaType\Tests;
 
 use Neoncitylights\MediaType\MediaType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Neoncitylights\MediaType\MediaType
- */
+#[CoversClass( MediaType::class )]
 class MediaTypeTest extends TestCase {
-	/**
-	 * @covers ::__construct
-	 */
 	public function testConstructor(): void {
 		$this->assertInstanceOf(
 			MediaType::class,
@@ -19,10 +16,7 @@ class MediaTypeTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::getEssence
-	 * @dataProvider provideEssences
-	 */
+	#[DataProvider( "provideEssences" )]
 	public function testGetEssence( string $type, string $subType, string $expectedEssence ): void {
 		$this->assertEquals(
 			$expectedEssence,
@@ -30,10 +24,7 @@ class MediaTypeTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::getParameterValue
-	 * @dataProvider provideParameterValues
-	 */
+	#[DataProvider( "provideParameterValues" )]
 	public function testGetParameterValue(
 		string $type,
 		string $subType,
@@ -47,10 +38,7 @@ class MediaTypeTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::minimize
-	 * @dataProvider provideMinimize
-	 */
+	#[DataProvider( "provideMinimize" )]
 	public function testMinimize(
 		string $type,
 		string $subType,
@@ -63,10 +51,7 @@ class MediaTypeTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::__toString
-	 * @dataProvider provideStrings
-	 */
+	#[DataProvider( "provideStrings" )]
 	public function testToString(
 		string $type,
 		string $subType,
@@ -79,7 +64,7 @@ class MediaTypeTest extends TestCase {
 		);
 	}
 
-	public function provideEssences() {
+	public static function provideEssences() {
 		return [
 			[
 				'text',
@@ -99,7 +84,7 @@ class MediaTypeTest extends TestCase {
 		];
 	}
 
-	public function provideParameters() {
+	public static function provideParameters() {
 		return [
 			[
 				'text',
@@ -116,7 +101,7 @@ class MediaTypeTest extends TestCase {
 		];
 	}
 
-	public function provideParameterValues() {
+	public static function provideParameterValues() {
 		return [
 			[
 				'text',
@@ -135,7 +120,7 @@ class MediaTypeTest extends TestCase {
 		];
 	}
 
-	public function provideMinimize() {
+	public static function provideMinimize() {
 		return [
 			[
 				'application',
@@ -188,7 +173,7 @@ class MediaTypeTest extends TestCase {
 		];
 	}
 
-	public function provideStrings() {
+	public static function provideStrings() {
 		return [
 			[
 				'text',

@@ -5,11 +5,11 @@ namespace Neoncitylights\MediaType\Tests;
 use Neoncitylights\MediaType\MediaType;
 use Neoncitylights\MediaType\MediaTypeParser;
 use Neoncitylights\MediaType\MediaTypeParserException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Neoncitylights\MediaType\MediaTypeParser
- */
+#[CoversClass( MediaTypeParser::class )]
 class MediaTypeParserTest extends TestCase {
 	private MediaTypeParser $parser;
 
@@ -17,10 +17,7 @@ class MediaTypeParserTest extends TestCase {
 		$this->parser = new MediaTypeParser();
 	}
 
-	/**
-	 * @covers ::parse
-	 * @dataProvider provideValidMediaTypes
-	 */
+	#[DataProvider( "provideValidMediaTypes" )]
 	public function testValidMediaTypes(
 		string $validMediaType,
 		string $expectedType,
@@ -35,16 +32,13 @@ class MediaTypeParserTest extends TestCase {
 		$this->assertEquals( $expectedParameters, $parsedValue->parameters );
 	}
 
-	/**
-	 * @covers ::parse
-	 * @dataProvider provideInvalidMediaTypes
-	 */
+	#[DataProvider( "provideInvalidMediaTypes" )]
 	public function testInvalidMediaTypes( $invalidMediaType ): void {
 		$this->expectException( MediaTypeParserException::class );
 		$this->parser->parse( $invalidMediaType );
 	}
 
-	public function provideValidMediaTypes(): array {
+	public static function provideValidMediaTypes(): array {
 		return [
 			[
 				'text/plain',
@@ -105,7 +99,7 @@ class MediaTypeParserTest extends TestCase {
 		];
 	}
 
-	public function provideInvalidMediaTypes(): array {
+	public static function provideInvalidMediaTypes(): array {
 		return [
 			[ '' ],
 			[ '    ' ],

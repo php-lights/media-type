@@ -6,6 +6,7 @@
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPrivate" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingParamTag" />
 		<exclude name="MediaWiki.Commenting.PropertyDocumentation.MissingDocumentationPrivate" />
+		<exclude name="MediaWiki.Commenting.MissingCovers.MissingCovers" />
 	</rule>
 	<rule ref="Squiz.Commenting.FunctionComment.IncorrectTypeHint" />
 	<rule ref="Generic.Files.LineLength">

@@ -4,16 +4,14 @@ namespace Neoncitylights\MediaType\Tests;
 
 use IntlChar;
 use Neoncitylights\MediaType\Utf8Utils;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Neoncitylights\MediaType\Utf8Utils
- */
+#[CoversClass( Utf8Utils::class )]
 class Utf8UtilsTest extends TestCase {
-	/**
-	 * @covers ::onlyContains
-	 * @dataProvider provideOnlyContains
-	 */
+
+	#[DataProvider( "provideOnlyContains" )]
 	public function testOnlyContains(
 		string $input,
 		callable $predicateFn,
@@ -25,10 +23,7 @@ class Utf8UtilsTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::trimHttpWhitespace
-	 * @dataProvider provideTrimHttpWhitespace
-	 */
+	#[DataProvider( "provideTrimHttpWhitespace" )]
 	public function testTrimHttpWhitespace(
 		string $inputValue,
 		string $expectedOutputValue
@@ -39,10 +34,7 @@ class Utf8UtilsTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::collectHttpQuotedString
-	 * @dataProvider provideCollectHttpQuotedString
-	 */
+	#[DataProvider( "provideCollectHttpQuotedString" )]
 	public function testCollectHttpQuotedString(
 		string $input,
 		int $startingPosition,
@@ -62,10 +54,7 @@ class Utf8UtilsTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::collectCodepoints
-	 * @dataProvider provideCollectCodepoints
-	 */
+	#[DataProvider( "provideCollectCodepoints" )]
 	public function testCollectCodepoints(
 		string $originalString,
 		int $originalPosition,
@@ -82,10 +71,7 @@ class Utf8UtilsTest extends TestCase {
 		$this->assertEquals( $position, $newPosition );
 	}
 
-	/**
-	 * @covers ::isHttpTokenCodepoint
-	 * @dataProvider provideIsHttpTokenCodepoint
-	 */
+	#[DataProvider( "provideIsHttpTokenCodepoint" )]
 	public function testIsHttpTokenCodepoint(
 		string $codepoint,
 		bool $expected
@@ -96,10 +82,7 @@ class Utf8UtilsTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::isHttpQuotedStringTokenCodepoint
-	 * @dataProvider provideIsHttpQuotedStringTokenCodepoint
-	 */
+	#[DataProvider( "provideIsHttpQuotedStringTokenCodepoint" )]
 	public function testIsHttpQuotedStringTokenCodepoint(
 		string $codepoint,
 		bool $expected
@@ -110,10 +93,7 @@ class Utf8UtilsTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::isHttpWhitespace
-	 * @dataProvider provideIsHttpWhitespace
-	 */
+	#[DataProvider( "provideIsHttpWhitespace" )]
 	public function testIsHttpWhitespace(
 		string $input,
 		bool $expected
@@ -124,7 +104,7 @@ class Utf8UtilsTest extends TestCase {
 		);
 	}
 
-	public function provideOnlyContains(): array {
+	public static function provideOnlyContains(): array {
 		return [
 			[ '', fn ( string $c ) => \ctype_alpha( $c ), true ],
 			[ 'test', fn ( string $c ) => \ctype_alpha( $c ), true ],
@@ -135,7 +115,7 @@ class Utf8UtilsTest extends TestCase {
 		];
 	}
 
-	public function provideTrimHttpWhitespace(): array {
+	public static function provideTrimHttpWhitespace(): array {
 		return [
 			[ '', '' ],
 			[ ' test ', 'test' ],
@@ -143,7 +123,7 @@ class Utf8UtilsTest extends TestCase {
 		];
 	}
 
-	public function provideCollectHttpQuotedString(): array {
+	public static function provideCollectHttpQuotedString(): array {
 		return [
 			[
 				"\"\\",
@@ -169,7 +149,7 @@ class Utf8UtilsTest extends TestCase {
 		];
 	}
 
-	public function provideCollectCodepoints(): array {
+	public static function provideCollectCodepoints(): array {
 		return [
 			[ '', 0, '', 0, fn () => true ],
 			[ '1234test', 0, '1234', 4, fn ( string $s ) => \ctype_digit( $s ) ],
@@ -179,14 +159,14 @@ class Utf8UtilsTest extends TestCase {
 		];
 	}
 
-	public function provideIsHttpTokenCodepoint(): array {
+	public static function provideIsHttpTokenCodepoint(): array {
 		return [
 			[ IntlChar::chr( 0x24 ), true ],
 			[ IntlChar::chr( 0x28 ), false ],
 		];
 	}
 
-	public function provideIsHttpQuotedStringTokenCodepoint(): array {
+	public static function provideIsHttpQuotedStringTokenCodepoint(): array {
 		return [
 			[ IntlChar::chr( 0x20 ), true ],
 			[ IntlChar::chr( 0x21 ), true ],
@@ -196,7 +176,7 @@ class Utf8UtilsTest extends TestCase {
 		];
 	}
 
-	public function provideIsHttpWhitespace(): array {
+	public static function provideIsHttpWhitespace(): array {
 		return [
 			[ '\n', true ],
 			[ '\r', true ],

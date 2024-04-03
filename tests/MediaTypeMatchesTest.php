@@ -3,16 +3,14 @@
 namespace Neoncitylights\MediaType\Tests;
 
 use Neoncitylights\MediaType\MediaType;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass \Neoncitylights\MediaType\MediaType
- */
+#[CoversClass( MediaType::class )]
 class MediaTypeMatchesTest extends TestCase {
-	/**
-	 * @covers ::isImage
-	 * @dataProvider provideIsImage
-	 */
+
+	#[DataProvider( "provideIsImage" )]
 	public function testIsImage( string $type, string $subType, bool $expected ): void {
 		$mediaType = new MediaType( $type, $subType, [] );
 		$this->assertEquals(
@@ -21,10 +19,7 @@ class MediaTypeMatchesTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::isAudioOrVideo
-	 * @dataProvider provideIsAudioOrVideo
-	 */
+	#[DataProvider( "provideIsAudioOrVideo" )]
 	public function testIsAudioOrVideo( string $type, string $subType, bool $expected ): void {
 		$mediaType = new MediaType( $type, $subType, [] );
 		$this->assertEquals(
@@ -33,10 +28,7 @@ class MediaTypeMatchesTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::isFont
-	 * @dataProvider provideIsFont
-	 */
+	#[DataProvider( "provideIsFont" )]
 	public function testIsFont( string $type, string $subType, bool $expected ): void {
 		$mediaType = new MediaType( $type, $subType, [] );
 		$this->assertEquals(
@@ -45,10 +37,7 @@ class MediaTypeMatchesTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::isZipBased
-	 * @dataProvider provideIsZipBased
-	 */
+	#[DataProvider( "provideIsZipBased" )]
 	public function testIsZipBased( string $type, string $subType, bool $expected ): void {
 		$mediaType = new MediaType( $type, $subType, [] );
 		$this->assertEquals(
@@ -57,10 +46,7 @@ class MediaTypeMatchesTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::isArchive
-	 * @dataProvider provideIsArchive
-	 */
+	#[DataProvider( "provideIsArchive" )]
 	public function testIsArchive( string $type, string $subType, bool $expected ): void {
 		$mediaType = new MediaType( $type, $subType, [] );
 		$this->assertEquals(
@@ -69,10 +55,7 @@ class MediaTypeMatchesTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::isXml
-	 * @dataProvider provideIsXml
-	 */
+	#[DataProvider( "provideIsXml" )]
 	public function testIsXml( string $type, string $subType, bool $expected ): void {
 		$mediaType = new MediaType( $type, $subType, [] );
 		$this->assertEquals(
@@ -81,10 +64,7 @@ class MediaTypeMatchesTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::isHtml
-	 * @dataProvider provideIsHtml
-	 */
+	#[DataProvider( "provideIsHtml" )]
 	public function testIsHtml( string $type, string $subType, bool $expected ): void {
 		$mediaType = new MediaType( $type, $subType, [] );
 		$this->assertEquals(
@@ -93,12 +73,9 @@ class MediaTypeMatchesTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::isScriptable
-	 * @dataProvider provideIsXml
-	 * @dataProvider provideIsHtml
-	 * @dataProvider provideIsScriptable
-	 */
+	#[DataProvider( "provideIsXml" )]
+	#[DataProvider( "provideIsHtml" )]
+	#[DataProvider( "provideIsScriptable" )]
 	public function testIsScriptable( string $type, string $subType, bool $expected ): void {
 		$mediaType = new MediaType( $type, $subType, [] );
 		$this->assertEquals(
@@ -107,10 +84,7 @@ class MediaTypeMatchesTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::isJavaScript
-	 * @dataProvider provideIsJavaScript
-	 */
+	#[DataProvider( "provideIsJavaScript" )]
 	public function testIsJavaScript( string $type, string $subType, bool $expected ): void {
 		$mediaType = new MediaType( $type, $subType, [] );
 		$this->assertEquals(
@@ -119,10 +93,7 @@ class MediaTypeMatchesTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @covers ::isJson
-	 * @dataProvider provideIsJson
-	 */
+	#[DataProvider( "provideIsJson" )]
 	public function testIsJson( string $type, string $subType, bool $expected ): void {
 		$mediaType = new MediaType( $type, $subType, [] );
 		$this->assertEquals(
@@ -131,7 +102,7 @@ class MediaTypeMatchesTest extends TestCase {
 		);
 	}
 
-	public function provideIsImage(): array {
+	public static function provideIsImage(): array {
 		return [
 			[ 'image', 'png', true ],
 			[ 'image', 'jpeg', true ],
@@ -139,7 +110,7 @@ class MediaTypeMatchesTest extends TestCase {
 		];
 	}
 
-	public function provideIsAudioOrVideo(): array {
+	public static function provideIsAudioOrVideo(): array {
 		return [
 			[ 'audio', 'mpeg', true ],
 			[ 'video', 'mp4', true ],
@@ -147,7 +118,7 @@ class MediaTypeMatchesTest extends TestCase {
 		];
 	}
 
-	public function provideIsFont(): array {
+	public static function provideIsFont(): array {
 		return [
 			[ 'font', 'woff', true ],
 			[ 'font', 'woff2', true ],
@@ -155,7 +126,7 @@ class MediaTypeMatchesTest extends TestCase {
 		];
 	}
 
-	public function provideIsZipBased(): array {
+	public static function provideIsZipBased(): array {
 		return [
 			[ 'application', 'zip', true ],
 			[ 'application', 'automationml-amlx+zip', true ],
@@ -164,7 +135,7 @@ class MediaTypeMatchesTest extends TestCase {
 		];
 	}
 
-	public function provideIsArchive(): array {
+	public static function provideIsArchive(): array {
 		return [
 			[ 'application', 'zip', true ],
 			[ 'application', 'x-rar-compressed', true ],
@@ -172,7 +143,7 @@ class MediaTypeMatchesTest extends TestCase {
 		];
 	}
 
-	public function provideIsXml(): array {
+	public static function provideIsXml(): array {
 		return [
 			[ 'application', 'xml', true ],
 			[ 'application', 'atom+xml', true ],
@@ -183,20 +154,20 @@ class MediaTypeMatchesTest extends TestCase {
 		];
 	}
 
-	public function provideIsHtml(): array {
+	public static function provideIsHtml(): array {
 		return [
 			[ 'text', 'html', true ],
 			[ 'text', 'plain', false ],
 		];
 	}
 
-	public function provideIsScriptable(): array {
+	public static function provideIsScriptable(): array {
 		return [
 			[ 'application', 'pdf', true ],
 		];
 	}
 
-	public function provideIsJavaScript(): array {
+	public static function provideIsJavaScript(): array {
 		return [
 			[ 'application', 'ecmascript', true ],
 			[ 'application', 'javascript', true ],
@@ -210,7 +181,7 @@ class MediaTypeMatchesTest extends TestCase {
 		];
 	}
 
-	public function provideIsJson(): array {
+	public static function provideIsJson(): array {
 		return [
 			[ 'application', 'json', true ],
 			[ 'model', 'gltf+json', true ],
