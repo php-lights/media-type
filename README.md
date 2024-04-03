@@ -1,7 +1,7 @@
 # MediaType
-![Packagist Version](https://img.shields.io/packagist/v/neoncitylights/media-type?style=flat-square)
-![GitHub](https://img.shields.io/github/license/neoncitylights/php-media-type?style=flat-square)
-![Build Status](https://img.shields.io/github/actions/workflow/status/neoncitylights/php-media-type/.github%2Fworkflows%2Fphp.yml?style=flat-square)
+[![Packagist Version](https://img.shields.io/packagist/v/neoncitylights/media-type?style=flat-square)](https://packagist.org/packages/neoncitylights/media-type)
+[![GitHub](https://img.shields.io/github/license/neoncitylights/php-media-type?style=flat-square)](https://github.com/neoncitylights/php-media-type/blob/main/LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/neoncitylights/php-media-type/.github%2Fworkflows%2Fphp.yml?style=flat-square)](https://github.com/neoncitylights/php-media-type/actions/workflows/php.yml)
 [![Code coverage](https://img.shields.io/codecov/c/github/neoncitylights/php-media-type?style=flat-square&token=0qtwQLpV57)](https://codecov.io/gh/neoncitylights/php-media-type)
 
 **MediaType** is a PHP library for dealing with IANA media types as entities.
