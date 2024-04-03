@@ -20,6 +20,9 @@ composer require neoncitylights/media-type
 ```
 
 ## Usage
+
+### Parsing
+
 ```php
 <?php
 
@@ -35,5 +38,21 @@ print( $mediaType->getEssence() ); // 'text/plain'
 print( $mediaType->getParameterValue( 'charset' ) ); // 'UTF-8'
 ```
 
+### Matching
+
+```php
+<?php
+
+use Neoncitylights\MediaType\MediaType;
+use Neoncitylights\MediaType\MediaTypeParser;
+
+$parser = new MediaTypeParser();
+
+$parser->parseOrNull( 'audio/midi' )->isAudioOrVideo(); // true
+$parser->parseOrNull( 'audio/ogg' )->isAudioOrVideo(); // true
+$parser->parseOrNull( 'application/ogg' )->isAudioOrVideo(); // true
+```
+
 ## License
+
 MediaType is licensed under the [MIT license](/LICENSE).
