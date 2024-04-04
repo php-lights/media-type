@@ -6,6 +6,10 @@
 
 - The library now requires PHP 8.2+ (originally 8.1+). This breaking change comes from bumping the developer dependency PHPUnit from v9 to v11.
 
+### Documentation
+
+- The `README.md` file now includes usage examples for serialization and matching. ([#49](https://github.com/neoncitylights/php-media-type/pull/49))
+
 ### Internal changes
 
 - Refactors `MediaType` class internally by factoring out subtype matching ([#45](https://github.com/neoncitylights/php-media-type/pull/45))
