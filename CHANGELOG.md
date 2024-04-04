@@ -12,6 +12,7 @@
 
 ### Internal changes
 
+- Simplify number of jobs in main CI workflow ([#48](https://github.com/neoncitylights/php-media-type/pull/48))
 - Refactors `MediaType` class internally by factoring out subtype matching ([#45](https://github.com/neoncitylights/php-media-type/pull/45))
 - Bumps `mediawiki/mediawiki-codesniffer` developer dependency from `v42.0.0` to `v43.0.0`. ([#38](https://github.com/neoncitylights/php-media-type/pull/38))
 - Bumps `php-parallel-lint/php-parallel-lint` developer dependency from `1.3.2` to `v1.4.0`. ([#47](https://github.com/neoncitylights/php-media-type/pull/47))
