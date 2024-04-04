@@ -4,7 +4,7 @@ namespace Neoncitylights\MediaType\Sniff;
 
 use Neoncitylights\MediaType\MediaType;
 
-final readonly class SniffAgent {
+final class SniffAgent {
 	/**
 	 * https://mimesniff.spec.whatwg.org/#computed-mime-type
 	 */
@@ -16,9 +16,9 @@ final readonly class SniffAgent {
 	 * @param bool $noSniffFlag https://mimesniff.spec.whatwg.org/#no-sniff-flag
 	 */
 	public function __construct(
-		public MediaType $suppliedMediaType,
-		public bool $checkForApacheFlag,
-		public bool $noSniffFlag
+		public readonly MediaType $suppliedMediaType,
+		public readonly bool $checkForApacheFlag,
+		public readonly bool $noSniffFlag
 	) {
 		$this->suppliedMediaType = $suppliedMediaType;
 		$this->computedMimeType = null;
