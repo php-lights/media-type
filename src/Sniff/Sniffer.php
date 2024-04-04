@@ -14,7 +14,7 @@ final class Sniffer {
 	 */
 	public function performTableLookup( array $tableLookup, array $sequence ) {
 		$imageTable = SniffTableLookup::IMAGE;
-		foreach( $imageTable as $tableRecord ) {
+		foreach ( $imageTable as $tableRecord ) {
 			$lookupValue = new SniffTableValue(
 				$tableRecord[0],
 				$tableRecord[1],
@@ -41,13 +41,13 @@ final class Sniffer {
 			return false;
 		}
 
-		$boxSize = \intval(\pack( "L*", ...\array_slice( $input, 0, 4 ) ));
+		$boxSize = \intval( \pack( "L*", ...\array_slice( $input, 0, 4 ) ) );
 		if ( $length < $boxSize || $boxSize % 4 !== 0 ) {
 			return false;
 		}
 
 		$bytes4to7 = \array_slice( $input, 4, 4 );
-		if( $bytes4to7 !== [ 0x66, 0x74, 0x79, 0x70 ] ) {
+		if ( $bytes4to7 !== [ 0x66, 0x74, 0x79, 0x70 ] ) {
 			return false;
 		}
 
@@ -70,7 +70,6 @@ final class Sniffer {
 	}
 
 	private function matchesSignatureForWebM() {
-
 	}
 
 	/**
@@ -79,7 +78,7 @@ final class Sniffer {
 	 * @param int[] $pattern
 	 * @param int[] $patternMask
 	 * @param int[] $bytesIgnored
-	 * @return boolean
+	 * @return bool
 	 */
 	private function doesByteSequenceMatchPattern(
 		array $input,
@@ -95,7 +94,7 @@ final class Sniffer {
 		}
 
 		$s = 0;
-		while( $s < $inputLen ) {
+		while ( $s < $inputLen ) {
 			if ( !in_array( $input[$s], $bytesIgnored ) ) {
 				return false;
 			}
