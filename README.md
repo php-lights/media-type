@@ -12,7 +12,7 @@ This library is compliant to the [WHATWG Mime Sniffing Standard](https://mimesni
 
 System requirements:
 
-- Minimum PHP version: 8.1
+- Minimum PHP version: 8.2
 - [`intl`](https://www.php.net/intl) PHP extension ([installation instructions](https://www.php.net/manual/en/intl.installation.php))
 
 ```bash
