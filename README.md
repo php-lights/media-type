@@ -4,9 +4,9 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/neoncitylights/php-media-type/.github%2Fworkflows%2Fphp.yml?style=flat-square)](https://github.com/neoncitylights/php-media-type/actions/workflows/php.yml)
 [![Code coverage](https://img.shields.io/codecov/c/github/neoncitylights/php-media-type?style=flat-square&token=0qtwQLpV57)](https://codecov.io/gh/neoncitylights/php-media-type)
 
-**MediaType** is a PHP library for dealing with IANA media types as entities.
+**MediaType** is a PHP library for parsing and serializing MIME types, also known as IANA media types.
 
-This library is compliant to the parsing section of the [WHATWG Mime Sniffing Standard](https://mimesniff.spec.whatwg.org/).
+This library is compliant to the [WHATWG Mime Sniffing Standard](https://mimesniff.spec.whatwg.org/).
 
 ## Install
 
@@ -36,6 +36,20 @@ print( $mediaType->type ); // 'text'
 print( $mediaType->subType ); // 'plain'
 print( $mediaType->getEssence() ); // 'text/plain'
 print( $mediaType->getParameterValue( 'charset' ) ); // 'UTF-8'
+```
+
+### Serializing
+
+```php
+<?php
+
+use Neoncitylights\MediaType\MediaType;
+
+$mediaType1 = new MediaType( 'text', 'plain', [ 'charset' => 'UT-8' ] );
+$mediaType1->toString(); // 'text/plain;charset=UTF-8'
+
+$mediaType2 = new MediaType( 'application', 'json', [] );
+$mediaType2->toString(); // 'application/json'
 ```
 
 ### Matching
