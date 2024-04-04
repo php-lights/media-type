@@ -1,12 +1,12 @@
 # MediaType
-![Packagist Version](https://img.shields.io/packagist/v/neoncitylights/media-type)
-![GitHub](https://img.shields.io/github/license/neoncitylights/php-media-type)
-[![Build Status](https://github.com/neoncitylights/php-media-type/actions/workflows/php.yml/badge.svg?branch=main)](https://github.com/neoncitylights/php-media-type/actions/workflows/php.yml)
-[![codecov](https://codecov.io/gh/neoncitylights/php-media-type/branch/main/graph/badge.svg?token=0qtwQLpV57)](https://codecov.io/gh/neoncitylights/php-media-type)
+[![Packagist Version](https://img.shields.io/packagist/v/neoncitylights/media-type?style=flat-square)](https://packagist.org/packages/neoncitylights/media-type)
+[![GitHub](https://img.shields.io/github/license/neoncitylights/php-media-type?style=flat-square)](https://github.com/neoncitylights/php-media-type/blob/main/LICENSE)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/neoncitylights/php-media-type/.github%2Fworkflows%2Fphp.yml?style=flat-square)](https://github.com/neoncitylights/php-media-type/actions/workflows/php.yml)
+[![Code coverage](https://img.shields.io/codecov/c/github/neoncitylights/php-media-type?style=flat-square&token=0qtwQLpV57)](https://codecov.io/gh/neoncitylights/php-media-type)
 
-**MediaType** is a PHP library for dealing with IANA media types as entities.
+**MediaType** is a PHP library for parsing and serializing MIME types, also known as IANA media types.
 
-This library is compliant to RFC 2045[^rfc-2045], and takes references from RFC 2046[^rfc-2046], RFC 6838[^rfc-6838], and the WHATWG Mime Sniffing Standard[^whatwg-mime].
+This library is compliant to the [WHATWG Mime Sniffing Standard](https://mimesniff.spec.whatwg.org/).
 
 ## Install
 
@@ -20,6 +20,9 @@ composer require neoncitylights/media-type
 ```
 
 ## Usage
+
+### Parsing
+
 ```php
 <?php
 
@@ -35,10 +38,39 @@ print( $mediaType->getEssence() ); // 'text/plain'
 print( $mediaType->getParameterValue( 'charset' ) ); // 'UTF-8'
 ```
 
-## License
-MediaType is licensed under the [MIT license](/LICENSE).
+### Serializing
 
-[^rfc-2046]: Freed, N., I., &amp; Borenstein, N. (2016, November). Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types. Retrieved October 29, 2020, from <https://tools.ietf.org/html/rfc2046>
-[^rfc-2045]: Freed, N., Innosoft, &amp; Borenstein, N. (1996, November). Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies. Retrieved October 29, 2020, from <https://tools.ietf.org/html/rfc2045>
-[^rfc-6838]: Freed, N., O., Klensin, J., Hansen, T., &amp; A. (2013, January). Media Type Specifications and Registration Procedures. Retrieved October 29, 2020, from <https://tools.ietf.org/html/rfc6838>
-[^whatwg-mime]: Hemsley, G. P., Barth, A., &amp; Hickson, I. (2020, September 30). MIME Sniffing Standard. Retrieved October 29, 2020, from <https://mimesniff.spec.whatwg.org/>
+```php
+<?php
+
+use Neoncitylights\MediaType\MediaType;
+
+$mediaType1 = new MediaType( 'text', 'plain', [ 'charset' => 'UT-8' ] );
+$mediaType1->toString(); // 'text/plain;charset=UTF-8'
+
+$mediaType2 = new MediaType( 'application', 'json', [] );
+$mediaType2->toString(); // 'application/json'
+```
+
+### Matching
+
+```php
+<?php
+
+use Neoncitylights\MediaType\MediaType;
+use Neoncitylights\MediaType\MediaTypeParser;
+
+$parser = new MediaTypeParser();
+
+$parser->parseOrNull( 'audio/midi' )->isAudioOrVideo(); // true
+$parser->parseOrNull( 'audio/ogg' )->isAudioOrVideo(); // true
+$parser->parseOrNull( 'application/ogg' )->isAudioOrVideo(); // true
+```
+
+## License
+
+This software is licensed under the MIT license ([`LICENSE-MIT`](./LICENSE) or <https://opensource.org/license/mit/>).
+
+### Contribution
+
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the work by you, as defined in the MIT license, shall be licensed as above, without any additional terms or conditions.
