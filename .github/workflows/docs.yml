@@ -32,7 +32,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
       - name: Build documentation
         run: composer docs
       - name: Upload artifact
