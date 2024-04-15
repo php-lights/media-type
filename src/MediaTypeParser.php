@@ -19,6 +19,7 @@ final class MediaTypeParser {
 
 	/**
 	 * @deprecated Deprecated in `v3.1.0`. Call `parseOrThrow()` instead.
+	 * @throws MediaTypeParserException|InvariantException
 	 */
 	public function parse( string|null $s ): MediaType {
 		return $this->parseOrThrow( $s );
