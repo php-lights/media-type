@@ -4,8 +4,7 @@
 
 ### Features
 
-- `MediaTypeParser::parseOrNull()`, `MediaTypeParse::parse()` now also accepts passing `null` values as an argument, the new argument type is `string|null`.
-
+- `MediaTypeParser::parseOrNull()`, `MediaTypeParse::parse()` now also accepts passing `null` values as an argument. The new argument type for both methods is now `string|null`.
 
 ### Bug fixes
 
