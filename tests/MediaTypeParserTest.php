@@ -24,7 +24,7 @@ class MediaTypeParserTest extends TestCase {
 		string $expectedSubType,
 		array $expectedParameters
 	): void {
-		$parsedValue = $this->parser->parse( $validMediaType );
+		$parsedValue = $this->parser->parseOrThrow( $validMediaType );
 
 		$this->assertInstanceOf( MediaType::class, $parsedValue );
 		$this->assertEquals( $expectedType, $parsedValue->type );
@@ -35,7 +35,7 @@ class MediaTypeParserTest extends TestCase {
 	#[DataProvider( "provideInvalidMediaTypes" )]
 	public function testInvalidMediaTypes( $invalidMediaType ): void {
 		$this->expectException( MediaTypeParserException::class );
-		$this->parser->parse( $invalidMediaType );
+		$this->parser->parseOrThrow( $invalidMediaType );
 	}
 
 	public static function provideValidMediaTypes(): array {
@@ -101,6 +101,7 @@ class MediaTypeParserTest extends TestCase {
 
 	public static function provideInvalidMediaTypes(): array {
 		return [
+			[ null ],
 			[ '' ],
 			[ '    ' ],
 			[ '\n\n\n\n\r\r\r' ],
