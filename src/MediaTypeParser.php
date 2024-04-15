@@ -9,18 +9,30 @@ use Wikimedia\Assert\InvariantException;
  * @see https://mimesniff.spec.whatwg.org/#parsing-a-mime-type
  */
 final class MediaTypeParser {
-	public function parseOrNull( string $s ): MediaType|null {
+	public function parseOrNull( string|null $s ): MediaType|null {
 		try {
-			return $this->parse( $s );
+			return $this->parseOrThrow( $s );
 		} catch ( MediaTypeParserException | AssertionException ) {
 			return null;
 		}
 	}
 
 	/**
+	 * @deprecated Deprecated in `v3.1.0`. Call `parseOrThrow()` instead.
 	 * @throws MediaTypeParserException|InvariantException
 	 */
-	public function parse( string $s ): MediaType {
+	public function parse( string|null $s ): MediaType {
+		return $this->parseOrThrow( $s );
+	}
+
+	/**
+	 * @throws MediaTypeParserException|InvariantException
+	 */
+	public function parseOrThrow( string|null $s ): MediaType {
+		if ( $s === null ) {
+			throw new MediaTypeParserException();
+		}
+
 		$normalized = Utf8Utils::trimHttpWhitespace( $s );
 		if ( $normalized === '' ) {
 			throw new MediaTypeParserException();

@@ -2,9 +2,17 @@
 
 ## 3.1.0 (YYYY-MM-DD)
 
-## Bug fixes
+### Features
+
+- `MediaTypeParser::parseOrNull()`, `MediaTypeParse::parse()` now also accepts passing `null` values as an argument. The new argument type for both methods is now `string|null`.
+
+### Bug fixes
 
 - Fixes minor bug in `MediaType::isFont()` method; it will now correctly return `true` for media types that have an essence of `application/vnd.ms-opentype`.
+
+### Deprecated
+
+- `MediaTypeParser::parse()` is deprecated and renamed to `MediaTypeParser::parseOrThrow()`, to be more explicit that it can throw exceptions. Call `MediaTypeParser::parseOrThrow()` instead.
 
 ## 3.0.0 (2024-04-03)
 
