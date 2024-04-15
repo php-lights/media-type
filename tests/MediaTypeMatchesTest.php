@@ -122,6 +122,12 @@ class MediaTypeMatchesTest extends TestCase {
 		return [
 			[ 'font', 'woff', true ],
 			[ 'font', 'woff2', true ],
+			[ 'application', 'font-cff', true ],
+			[ 'application', 'font-sfnt', true ],
+			[ 'application', 'font-ttf', true ],
+			[ 'application', 'font-woff', true ],
+			[ 'application', 'vnd.ms-fontobject', true ],
+			[ 'application', 'vnd.ms-opentype', true ],
 			[ 'text', 'plain', false ],
 		];
 	}
