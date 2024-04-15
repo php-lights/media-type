@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.1.0 (YYYY-MM-DD)
+
+## Bug fixes
+
+- Fixes minor bug in `MediaType::isFont()` method; it will now correctly return `true` for media types that have an essence of `application/vnd.ms-opentype`.
+
 ## 3.0.0 (2024-04-03)
 
 ### Breaking changes

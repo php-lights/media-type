@@ -101,7 +101,7 @@ final class MediaType implements Stringable {
 				'font-ttf',
 				'font-woff',
 				'vnd.ms-fontobject',
-				'vnd.ms-opentype ',
+				'vnd.ms-opentype',
 			] ) );
 	}
 
