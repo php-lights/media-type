@@ -1,8 +1,17 @@
 # MediaType
-[![Packagist Version](https://img.shields.io/packagist/v/neoncitylights/media-type?style=flat-square)](https://packagist.org/packages/neoncitylights/media-type)
-[![GitHub](https://img.shields.io/github/license/neoncitylights/php-media-type?style=flat-square)](https://github.com/neoncitylights/php-media-type/blob/main/LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/neoncitylights/php-media-type/.github%2Fworkflows%2Fphp.yml?style=flat-square)](https://github.com/neoncitylights/php-media-type/actions/workflows/php.yml)
-[![Code coverage](https://img.shields.io/codecov/c/github/neoncitylights/php-media-type?style=flat-square&token=0qtwQLpV57)](https://codecov.io/gh/neoncitylights/php-media-type)
+[![Packagist version][packagist-badge]][packagist-url]
+[![License][license-badge]][license-url]
+[![Build status][build-badge]][build-url]
+[![Code coverage][codecov-badge]][codecov-url]
+
+[packagist-badge]: https://img.shields.io/packagist/v/neoncitylights/media-type?style=flat-square
+[packagist-url]: https://packagist.org/packages/neoncitylights/media-type
+[license-badge]: https://img.shields.io/github/license/neoncitylights/php-media-type?style=flat-square
+[license-url]: #license
+[build-badge]: https://img.shields.io/github/actions/workflow/status/neoncitylights/php-media-type/.github%2Fworkflows%2Fphp.yml?style=flat-square
+[build-url]: https://github.com/neoncitylights/php-media-type/actions/workflows/php.yml
+[codecov-badge]: https://img.shields.io/codecov/c/github/neoncitylights/php-media-type?style=flat-square
+[codecov-url]: https://codecov.io/gh/neoncitylights/php-media-type
 
 **MediaType** is a PHP library for parsing and serializing MIME types, also known as IANA media types.
 
