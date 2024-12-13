@@ -9,7 +9,6 @@
 This library is compliant to the [WHATWG Mime Sniffing Standard](https://mimesniff.spec.whatwg.org/).
 
 ## Install
-
 System requirements:
 
 - Minimum PHP version: 8.2
@@ -22,7 +21,6 @@ composer require neoncitylights/media-type
 ## Usage
 
 ### Parsing
-
 ```php
 <?php
 
@@ -39,7 +37,6 @@ print( $mediaType->getParameterValue( 'charset' ) ); // 'UTF-8'
 ```
 
 ### Serializing
-
 ```php
 <?php
 
@@ -53,7 +50,6 @@ $mediaType2->toString(); // 'application/json'
 ```
 
 ### Matching
-
 ```php
 <?php
 
@@ -68,9 +64,7 @@ $parser->parseOrNull( 'application/ogg' )->isAudioOrVideo(); // true
 ```
 
 ## License
-
 This software is licensed under the MIT license ([`LICENSE-MIT`](./LICENSE) or <https://opensource.org/license/mit/>).
 
 ### Contribution
-
 Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in the work by you, as defined in the MIT license, shall be licensed as above, without any additional terms or conditions.

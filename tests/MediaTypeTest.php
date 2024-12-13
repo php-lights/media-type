@@ -17,7 +17,11 @@ class MediaTypeTest extends TestCase {
 	}
 
 	#[DataProvider( "provideEssences" )]
-	public function testGetEssence( string $type, string $subType, string $expectedEssence ): void {
+	public function testGetEssence(
+		string $type,
+		string $subType,
+		string $expectedEssence
+	): void {
 		$this->assertEquals(
 			$expectedEssence,
 			( new MediaType( $type, $subType, [] ) )->getEssence()
@@ -44,7 +48,7 @@ class MediaTypeTest extends TestCase {
 		string $subType,
 		string $expectedEssence,
 		bool $isSupported,
-	) {
+	): void {
 		$this->assertEquals(
 			$expectedEssence,
 			( new MediaType( $type, $subType, [] ) )->minimize( $isSupported )
@@ -64,7 +68,7 @@ class MediaTypeTest extends TestCase {
 		);
 	}
 
-	public static function provideEssences() {
+	public static function provideEssences(): array {
 		return [
 			[
 				'text',
@@ -84,7 +88,7 @@ class MediaTypeTest extends TestCase {
 		];
 	}
 
-	public static function provideParameters() {
+	public static function provideParameters(): array {
 		return [
 			[
 				'text',
@@ -101,7 +105,7 @@ class MediaTypeTest extends TestCase {
 		];
 	}
 
-	public static function provideParameterValues() {
+	public static function provideParameterValues(): array {
 		return [
 			[
 				'text',
@@ -120,7 +124,7 @@ class MediaTypeTest extends TestCase {
 		];
 	}
 
-	public static function provideMinimize() {
+	public static function provideMinimize(): array {
 		return [
 			[
 				'application',

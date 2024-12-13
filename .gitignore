@@ -21,4 +21,7 @@ phpdoc.xml
 
 # code coverage
 coverage
-coverage.xml
+coverage.*
+
+# PHPActor LSP
+.phpactor.json

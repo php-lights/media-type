@@ -1,31 +1,30 @@
 # Changelog
 
-## 3.1.0 (YYYY-MM-DD)
+## 3.1.0 (2024-12-12)
 
 ### Features
-
 - `MediaTypeParser::parseOrNull()`, `MediaTypeParse::parse()` now also accepts passing `null` values as an argument. The new argument type for both methods is now `string|null`.
 
 ### Bug fixes
-
 - Fixes minor bug in `MediaType::isFont()` method; it will now correctly return `true` for media types that have an essence of `application/vnd.ms-opentype`.
 
 ### Deprecated
-
 - `MediaTypeParser::parse()` is deprecated and renamed to `MediaTypeParser::parseOrThrow()`, to be more explicit that it can throw exceptions. Call `MediaTypeParser::parseOrThrow()` instead.
+
+### Internal changes
+- The developer dependency `mediawiki/mediawiki-codesniffer` was bumped from v43.0.0 to v45.0.0.
+- The developer dependency `mediawiki/minus-x` was bumped from v1.1.1 to v1.1.3.
+- The developer dependency `phpunit/phpunit` was bumped from v11.0.8 to v11.2.8.
 
 ## 3.0.0 (2024-04-03)
 
 ### Breaking changes
-
 - The library now requires PHP 8.2+ (originally 8.1+). This breaking change comes from bumping the developer dependency PHPUnit from v9 to v11.
 
 ### Documentation
-
 - The `README.md` file now includes usage examples for serialization and matching. ([#49](https://github.com/neoncitylights/php-media-type/pull/49))
 
 ### Internal changes
-
 - Simplify number of jobs in main CI workflow ([#48](https://github.com/neoncitylights/php-media-type/pull/48))
 - Refactors `MediaType` class internally by factoring out subtype matching ([#45](https://github.com/neoncitylights/php-media-type/pull/45))
 - Bumps `mediawiki/mediawiki-codesniffer` developer dependency from `v42.0.0` to `v43.0.0`. ([#38](https://github.com/neoncitylights/php-media-type/pull/38))
@@ -35,11 +34,9 @@
 ## 2.1.0 (2024-03-27)
 
 ### Features
-
 - `MediaType` now has a new method, `minimize( $isSupported )`. This method allows returning a consistent essence as a string, depending on what category the media type is and whether the user agent supports the media type. For example, if the media type is a JavaScript type, then it will consistently return `"text/javascript"`.
 
 ### Documentation
-
 - Fixes minor phpDoc annotation issues within `MediaType`. Specifically:
   - Removes redundant `@return` annotations that are already specified from return typehints
   - Removes redundant `@param` annotation from `getParameterValue()`
@@ -48,7 +45,6 @@
 ## 2.0.0 (2023-12-11)
 
 ### Features
-
  - `MediaTypeParser` is a new parser that is more compliant to WHATWG Mime Sniffing Standard. The following differences include:
    - validates for Unicode ranges of HTTP codepoints and HTTP quoted-string codepoints
    - normalizes the type and subtype to ASCII lowercase
@@ -69,11 +65,9 @@
    - `isJson()`
 
 ### Bug fixes
-
  - `MediaType::__toString()` now correctly serializes HTTP parameter values that contain HTTP-quoted strings.
 
 ### Breaking changes
-
  - The package now requires PHP 8.1 or higher, and the native `intl` extension.
  - The following classes are now marked as `final`:
    - `MediaType`
@@ -91,5 +85,4 @@
 ## 1.0.0 (2020-10-28)
 
 ### Notes
-
  - First release
