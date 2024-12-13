@@ -14,7 +14,7 @@
 ### Internal changes
 - The developer dependency `mediawiki/mediawiki-codesniffer` was bumped from v43.0.0 to v45.0.0.
 - The developer dependency `mediawiki/minus-x` was bumped from v1.1.1 to v1.1.3.
-- The developer dependency `phpunit/phpunit` was bumped from v11.0.8 to v11.2.8.
+- The developer dependency `phpunit/phpunit` was bumped from v11.0.8 to v11.5.1.
 
 ## 3.0.0 (2024-04-03)
 
