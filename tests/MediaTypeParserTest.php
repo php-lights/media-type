@@ -33,7 +33,7 @@ class MediaTypeParserTest extends TestCase {
 	}
 
 	#[DataProvider( "provideInvalidMediaTypes" )]
-	public function testInvalidMediaTypes( $invalidMediaType ): void {
+	public function testInvalidMediaTypes( ?string $invalidMediaType ): void {
 		$this->expectException( MediaTypeParserException::class );
 		$this->parser->parseOrThrow( $invalidMediaType );
 	}
