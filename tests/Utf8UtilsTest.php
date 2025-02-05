@@ -106,12 +106,12 @@ class Utf8UtilsTest extends TestCase {
 
 	public static function provideOnlyContains(): array {
 		return [
-			[ '', fn ( string $c ) => \ctype_alpha( $c ), true ],
-			[ 'test', fn ( string $c ) => \ctype_alpha( $c ), true ],
-			[ '1234', fn ( string $c ) => \ctype_digit( $c ), true ],
-			[ '1234test', fn ( string $c ) => \ctype_digit( $c ), false ],
-			[ 'test1234', fn ( string $c ) => \ctype_alpha( $c ), false ],
-			[ 'test1234', fn ( string $c ) => \ctype_alnum( $c ), true ],
+			[ '', static fn ( string $c ) => \ctype_alpha( $c ), true ],
+			[ 'test', static fn ( string $c ) => \ctype_alpha( $c ), true ],
+			[ '1234', static fn ( string $c ) => \ctype_digit( $c ), true ],
+			[ '1234test', static fn ( string $c ) => \ctype_digit( $c ), false ],
+			[ 'test1234', static fn ( string $c ) => \ctype_alpha( $c ), false ],
+			[ 'test1234', static fn ( string $c ) => \ctype_alnum( $c ), true ],
 		];
 	}
 
@@ -151,11 +151,11 @@ class Utf8UtilsTest extends TestCase {
 
 	public static function provideCollectCodepoints(): array {
 		return [
-			[ '', 0, '', 0, fn () => true ],
-			[ '1234test', 0, '1234', 4, fn ( string $s ) => \ctype_digit( $s ) ],
-			[ 'test1234', 0, 'test', 4, fn ( string $s ) => \ctype_alpha( $s ) ],
-			[ 'foo/bar', 0, 'foo', 3, fn ( string $s ) => $s !== '/' ],
-			[ 'foo/bar;', 0, 'foo/bar', 7, fn ( string $s ) => $s !== ';' ],
+			[ '', 0, '', 0, static fn () => true ],
+			[ '1234test', 0, '1234', 4, static fn ( string $s ) => \ctype_digit( $s ) ],
+			[ 'test1234', 0, 'test', 4, static fn ( string $s ) => \ctype_alpha( $s ) ],
+			[ 'foo/bar', 0, 'foo', 3, static fn ( string $s ) => $s !== '/' ],
+			[ 'foo/bar;', 0, 'foo/bar', 7, static fn ( string $s ) => $s !== ';' ],
 		];
 	}
 

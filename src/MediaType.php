@@ -235,7 +235,7 @@ final class MediaType implements Stringable {
 
 			$onlyContainsHttpCodepoints = Utf8Utils::onlyContains(
 				$value,
-				fn ( string $s ) => Utf8Utils::isHttpTokenCodepoint( $s ) );
+				static fn ( string $s ) => Utf8Utils::isHttpTokenCodepoint( $s ) );
 
 			if ( $value === '' || !$onlyContainsHttpCodepoints ) {
 				$serializedValue = $this->serializeParameterValue( $value );

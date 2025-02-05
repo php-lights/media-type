@@ -54,7 +54,7 @@ final class MediaTypeParser {
 	private function collectType( string $s, int $length, int &$position ): string {
 		$type = Utf8Utils::collectCodepoints(
 			$s, $position,
-			fn ( string $c ) => $c !== Token::Slash->value
+			static fn ( string $c ) => $c !== Token::Slash->value
 		);
 
 		if ( $type === '' ) {
@@ -62,7 +62,7 @@ final class MediaTypeParser {
 		}
 
 		$onlyContainsHttpCodepoints = Utf8Utils::onlyContains(
-			$type, fn ( string $c ) => Utf8Utils::isHttpTokenCodepoint( $c ) );
+			$type, static fn ( string $c ) => Utf8Utils::isHttpTokenCodepoint( $c ) );
 		if ( !$onlyContainsHttpCodepoints ) {
 			throw new MediaTypeParserException( "type: should only contain HTTP codepoints" );
 		}
@@ -82,7 +82,7 @@ final class MediaTypeParser {
 	private function collectSubType( string $s, int &$position ): string {
 		$subType = Utf8Utils::collectCodepoints(
 			$s, $position,
-			fn ( string $c ) => $c !== Token::Semicolon->value
+			static fn ( string $c ) => $c !== Token::Semicolon->value
 		);
 		$subType = Utf8Utils::trimHttpWhitespace( $subType );
 
@@ -91,7 +91,7 @@ final class MediaTypeParser {
 		}
 
 		$onlyContainsHttpCodepoints = Utf8Utils::onlyContains(
-			$subType, fn ( string $c ) => Utf8Utils::isHttpTokenCodepoint( $c ) );
+			$subType, static fn ( string $c ) => Utf8Utils::isHttpTokenCodepoint( $c ) );
 		if ( !$onlyContainsHttpCodepoints ) {
 			throw new MediaTypeParserException( "subtype: should only contain HTTP codepoints" );
 		}
@@ -110,13 +110,13 @@ final class MediaTypeParser {
 			// skip whitespace
 			Utf8Utils::collectCodepoints(
 				$s, $position,
-				fn ( string $c ) => Utf8Utils::isHttpWhitespace( $c )
+				static fn ( string $c ) => Utf8Utils::isHttpWhitespace( $c )
 			);
 
 			// collect parameter name
 			$parameterName = Utf8Utils::collectCodepoints(
 				$s, $position,
-				fn ( string $c ) => $c !== Token::Semicolon->value && $c !== Token::Equal->value
+				static fn ( string $c ) => $c !== Token::Semicolon->value && $c !== Token::Equal->value
 			);
 			$parameterName = \strtolower( $parameterName );
 
@@ -135,10 +135,11 @@ final class MediaTypeParser {
 			$parameterValue = null;
 			if ( $s[$position] === '"' ) {
 				$parameterValue = Utf8Utils::collectHttpQuotedString( $s, $position, true );
-				Utf8Utils::collectCodepoints( $s, $position, fn ( string $c ) => $c !== Token::Semicolon->value );
+				Utf8Utils::collectCodepoints( $s, $position,
+					static fn ( string $c ) => $c !== Token::Semicolon->value );
 			} else {
 				$parameterValue = Utf8Utils::collectCodepoints( $s, $position,
-					fn ( string $c ) => $c !== Token::Semicolon->value );
+					static fn ( string $c ) => $c !== Token::Semicolon->value );
 				$parameterValue = Utf8Utils::trimHttpWhitespace( $parameterValue );
 
 				if ( $parameterValue === '' ) {
@@ -150,9 +151,9 @@ final class MediaTypeParser {
 			if (
 				$parameterName !== ''
 				&& Utf8Utils::onlyContains( $parameterName,
-					fn ( string $c ) => Utf8Utils::isHttpTokenCodepoint( $c ) )
+					static fn ( string $c ) => Utf8Utils::isHttpTokenCodepoint( $c ) )
 				&& Utf8Utils::onlyContains( $parameterValue,
-					fn ( string $c ) => Utf8Utils::isHttpQuotedStringTokenCodepoint( $c ) )
+					static fn ( string $c ) => Utf8Utils::isHttpQuotedStringTokenCodepoint( $c ) )
 				&& !\array_key_exists( $parameterName, $parameters )
 			) {
 				$parameters[$parameterName] = $parameterValue;
