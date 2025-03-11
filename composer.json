@@ -2,11 +2,18 @@
 	"name": "neoncitylights/media-type",
 	"authors": [
 		{
-			"name": "Samantha Nguyen"
+			"name": "Samantha Nguyen",
+			"email": "contact@samanthanguyen.me"
 		}
 	],
 	"license": "MIT",
 	"description": "Allows working with IANA media types as entities in PHP",
+	"keywords": [
+		"iana",
+		"media type",
+		"mime type",
+		"rfc 2397"
+	],
 	"autoload": {
 		"psr-4": {
 			"Neoncitylights\\MediaType\\": "src/"
@@ -17,12 +24,6 @@
 			"Neoncitylights\\MediaType\\Tests\\": "tests/"
 		}
 	},
-	"funding": [
-		{
-			"type": "github",
-			"url": "https://github.com/sponsors/neoncitylights"
-		}
-	],
 	"require": {
 		"php": ">=8.2",
 		"wikimedia/assert": "^0.5.1",
@@ -36,26 +37,26 @@
 		"phpunit/phpunit": "11.5.6"
 	},
 	"scripts": {
-		"lint": "parallel-lint . --exclude vendor --exclude node_modules",
-		"phpcs": "phpcs -p -s",
-		"test:phpunit-clover": "phpunit tests --coverage-clover coverage.xml",
-		"test:phpunit-xml": "phpunit tests --coverage-xml coverage",
-		"test:phpunit-html": "phpunit tests --coverage-html coverage",
 		"test": [
 			"@lint",
-			"@phpcs",
-			"@test:phpunit-clover",
-			"minus-x check ."
+			"@phpunit:xml",
+			"minus-x check .",
+			"@phpcs"
 		],
+		"lint": "parallel-lint . --exclude vendor --exclude node_modules",
+		"phpcs": "phpcs -p -s",
+		"phpunit": "phpunit tests",
+		"phpunit:xml": "@phpunit --coverage-clover .phpunit/coverage.xml",
+		"phpunit:html": "@phpunit --coverage-html .phpunit/html/",
 		"fix": [
 			"minus-x fix .",
 			"phpcbf"
 		],
-		"docs": "phpdoc",
-		"migrate": "phpunit --migrate-configuration"
+		"docs": "phpdoc"
 	},
 	"config": {
 		"allow-plugins": {
+			"composer/package-versions-deprecated": true,
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	}
