@@ -1,15 +1,18 @@
 # MediaType
 [![Packagist version][packagist-badge]][packagist-url]
 [![License][license-badge]][license-url]
-[![Build status][build-badge]][build-url]
+[![Docs][docs-badge]][docs-url]
+[![CI][ci-badge]][ci-url]
 [![Code coverage][codecov-badge]][codecov-url]
 
 [packagist-badge]: https://img.shields.io/packagist/v/neoncitylights/media-type?style=flat-square
 [packagist-url]: https://packagist.org/packages/neoncitylights/media-type
 [license-badge]: https://img.shields.io/badge/License-MIT-blue?style=flat-square
 [license-url]: #license
-[build-badge]: https://img.shields.io/github/actions/workflow/status/php-lights/media-type/.github%2Fworkflows%2Fphp.yml?style=flat-square
-[build-url]: https://github.com/php-lights/media-type/actions/workflows/php.yml
+[docs-badge]: https://img.shields.io/github/deployments/php-lights/media-type/github-pages?label=docs&style=flat-square
+[docs-url]: https://php-lights.github.io/media-type/
+[ci-badge]: https://img.shields.io/github/actions/workflow/status/php-lights/media-type/.github%2Fworkflows%2Fphp.yml?style=flat-square
+[ci-url]: https://github.com/php-lights/media-type/actions/workflows/php.yml
 [codecov-badge]: https://img.shields.io/codecov/c/github/php-lights/media-type?style=flat-square
 [codecov-url]: https://codecov.io/gh/php-lights/media-type
 
