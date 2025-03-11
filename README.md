@@ -6,12 +6,12 @@
 
 [packagist-badge]: https://img.shields.io/packagist/v/neoncitylights/media-type?style=flat-square
 [packagist-url]: https://packagist.org/packages/neoncitylights/media-type
-[license-badge]: https://img.shields.io/github/license/neoncitylights/php-media-type?style=flat-square
+[license-badge]: https://img.shields.io/badge/License-MIT-blue?style=flat-square
 [license-url]: #license
-[build-badge]: https://img.shields.io/github/actions/workflow/status/neoncitylights/php-media-type/.github%2Fworkflows%2Fphp.yml?style=flat-square
-[build-url]: https://github.com/neoncitylights/php-media-type/actions/workflows/php.yml
-[codecov-badge]: https://img.shields.io/codecov/c/github/neoncitylights/php-media-type?style=flat-square
-[codecov-url]: https://codecov.io/gh/neoncitylights/php-media-type
+[build-badge]: https://img.shields.io/github/actions/workflow/status/php-lights/media-type/.github%2Fworkflows%2Fphp.yml?style=flat-square
+[build-url]: https://github.com/php-lights/media-type/actions/workflows/php.yml
+[codecov-badge]: https://img.shields.io/codecov/c/github/php-lights/media-type?style=flat-square
+[codecov-url]: https://codecov.io/gh/php-lights/media-type
 
 **MediaType** is a PHP library for parsing and serializing MIME types, also known as IANA media types.
 
